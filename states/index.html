@@ -1,0 +1,192 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tailwind States</title>
+    <link rel="stylesheet" href="/src/style.css" />
+  </head>
+  <body class="bg-gray-50">
+    <div class="max-w-4xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
+      <h1 class="text-4xl font-bold text-gray-900 mb-12">Tailwind CSS States</h1>
+
+      <!-- Hover States Section -->
+      <section class="mb-12">
+        <h2 class="text-2xl font-semibold text-gray-800 mb-6">Hover States</h2>
+        <div class="space-y-4">
+          <button class="px-4 py-2 bg-blue-500 text-white font-semibold rounded-lg hover:bg-blue-600 transition-colors">
+            Hover: Background Color Changes
+          </button>
+          <button class="px-4 py-2 bg-green-500 text-white font-semibold rounded-lg hover:scale-105 hover:shadow-lg transition-all">
+            Hover: Scale & Shadow
+          </button>
+          <button class="px-4 py-2 border-2 border-purple-500 text-purple-500 font-semibold rounded-lg hover:bg-purple-500 hover:text-white transition-colors">
+            Hover: Background & Text Color
+          </button>
+          <a href="#" class="inline-block px-4 py-2 text-blue-500 font-semibold hover:text-blue-700 hover:underline transition-colors">
+            Hover: Text Decoration
+          </a>
+        </div>
+      </section>
+
+      <!-- Focus States Section -->
+      <section class="mb-12">
+        <h2 class="text-2xl font-semibold text-gray-800 mb-6">Focus States</h2>
+        <div class="space-y-4">
+          <input 
+            type="text" 
+            placeholder="Click to focus - blue ring" 
+            class="w-full px-4 py-2 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-200"
+          />
+          <input 
+            type="text" 
+            placeholder="Click to focus - green ring" 
+            class="w-full px-4 py-2 border-2 border-gray-300 rounded-lg focus:outline-none focus:ring-4 focus:ring-green-300"
+          />
+          <textarea 
+            placeholder="Click to focus - purple ring" 
+            class="w-full px-4 py-2 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-200"
+            rows="4"
+          ></textarea>
+        </div>
+      </section>
+
+      <!-- Active States Section -->
+      <section class="mb-12">
+        <h2 class="text-2xl font-semibold text-gray-800 mb-6">Active States</h2>
+        <div class="space-y-4">
+          <button class="px-6 py-2 bg-blue-500 text-white font-semibold rounded-lg active:bg-blue-700 active:scale-95 transition-all">
+            Active: Color & Scale (Press & hold)
+          </button>
+          <button class="px-6 py-2 bg-indigo-500 text-white font-semibold rounded-lg active:shadow-inner active:ring-2 active:ring-indigo-800 transition-all">
+            Active: Inner Shadow & Ring (Press & hold)
+          </button>
+        </div>
+      </section>
+
+      <!-- Disabled States Section -->
+      <section class="mb-12">
+        <h2 class="text-2xl font-semibold text-gray-800 mb-6">Disabled States</h2>
+        <div class="space-y-4">
+          <button disabled class="px-6 py-2 bg-blue-500 text-white font-semibold rounded-lg disabled:opacity-50 disabled:cursor-not-allowed">
+            Disabled Button (Opacity)
+          </button>
+          <button disabled class="px-6 py-2 bg-green-500 text-white font-semibold rounded-lg disabled:bg-gray-400 disabled:cursor-not-allowed">
+            Disabled Button (Color Change)
+          </button>
+          <input 
+            type="text" 
+            disabled
+            placeholder="Disabled input" 
+            class="w-full px-4 py-2 border-2 border-gray-300 rounded-lg disabled:bg-gray-100 disabled:text-gray-500 disabled:cursor-not-allowed"
+          />
+        </div>
+      </section>
+
+      <!-- Group Hover Section -->
+      <section class="mb-12">
+        <h2 class="text-2xl font-semibold text-gray-800 mb-6">Group Hover</h2>
+        <div class="space-y-4">
+          <div class="group border-2 border-gray-300 rounded-lg p-6 cursor-pointer hover:border-blue-500 hover:bg-blue-50 transition-all">
+            <p class="text-lg font-semibold text-gray-900 group-hover:text-blue-600 transition-colors">Hover over this card</p>
+            <p class="text-gray-600 group-hover:text-blue-500 transition-colors">All child elements change color on parent hover</p>
+          </div>
+
+          <div class="group flex items-center gap-4 p-6 border-2 border-gray-300 rounded-lg hover:bg-green-50 hover:border-green-500 transition-all cursor-pointer">
+            <div class="w-12 h-12 bg-gray-300 rounded-full group-hover:bg-green-500 transition-colors"></div>
+            <div>
+              <p class="font-semibold text-gray-900 group-hover:text-green-600 transition-colors">Card with Icon</p>
+              <p class="text-sm text-gray-600 group-hover:text-green-600 transition-colors">Entire card and icon react to hover</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Focus-Within Section -->
+      <section class="mb-12">
+        <h2 class="text-2xl font-semibold text-gray-800 mb-6">Focus-Within</h2>
+        <div class="focus-within:ring-2 focus-within:ring-purple-400 focus-within:bg-purple-50 p-6 border-2 border-gray-300 rounded-lg transition-all">
+          <label class="block text-sm font-semibold text-gray-700 mb-2">Name</label>
+          <input 
+            type="text" 
+            placeholder="Focus any input" 
+            class="w-full px-3 py-2 border border-gray-300 rounded-md mb-4 focus:outline-none focus:border-purple-500"
+          />
+          <label class="block text-sm font-semibold text-gray-700 mb-2">Email</label>
+          <input 
+            type="email" 
+            placeholder="Focus any input" 
+            class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-purple-500"
+          />
+          <p class="text-sm text-gray-600 mt-4">The entire form section highlights when any input is focused</p>
+        </div>
+      </section>
+
+      <!-- Empty & First/Last Child Section -->
+      <section class="mb-12">
+        <h2 class="text-2xl font-semibold text-gray-800 mb-6">First, Last & Even/Odd</h2>
+        <div class="space-y-2">
+          <div class="p-4 border border-gray-300 first:rounded-t-lg first:border-t-2 first:border-t-blue-500">Item 1</div>
+          <div class="p-4 border border-gray-300 even:bg-gray-100">Item 2</div>
+          <div class="p-4 border border-gray-300 odd:bg-white">Item 3</div>
+          <div class="p-4 border border-gray-300 even:bg-gray-100">Item 4</div>
+          <div class="p-4 border border-gray-300 last:rounded-b-lg last:border-b-2 last:border-b-blue-500">Item 5</div>
+        </div>
+      </section>
+
+      <!-- Dark Mode State (optional, needs dark mode configured) -->
+      <section class="mb-12">
+        <h2 class="text-2xl font-semibold text-gray-800 mb-6">Dark Mode Variant</h2>
+        <div class="p-6 bg-white dark:bg-gray-800 rounded-lg border border-gray-300 dark:border-gray-600">
+          <p class="text-gray-900 dark:text-white font-semibold mb-2">This card changes in dark mode</p>
+          <p class="text-gray-600 dark:text-gray-300">Switch system theme to see the effect (requires dark mode configured)</p>
+          <button class="mt-4 px-4 py-2 bg-blue-500 dark:bg-blue-600 text-white rounded-lg hover:bg-blue-600 dark:hover:bg-blue-700">
+            Dark Mode Aware Button
+          </button>
+        </div>
+      </section>
+
+      <!-- Group Focus Section -->
+      <section class="mb-12">
+        <h2 class="text-2xl font-semibold text-gray-800 mb-6">Group Focus</h2>
+        <div class="group/form space-y-4 border-2 border-gray-300 rounded-lg p-6 focus-within:border-blue-500 focus-within:ring-2 focus-within:ring-blue-200 transition-all">
+          <div>
+            <label class="block text-sm font-semibold text-gray-700 mb-2 group-focus/form:text-blue-600 transition-colors">Username</label>
+            <input 
+              type="text" 
+              class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
+              placeholder="Enter username"
+            />
+          </div>
+          <div>
+            <label class="block text-sm font-semibold text-gray-700 mb-2 group-focus/form:text-blue-600 transition-colors">Password</label>
+            <input 
+              type="password" 
+              class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
+              placeholder="Enter password"
+            />
+          </div>
+          <button class="w-full px-4 py-2 bg-gray-300 text-gray-700 font-semibold rounded-lg group-focus/form:bg-blue-500 group-focus/form:text-white transition-colors">
+            Submit
+          </button>
+        </div>
+      </section>
+
+      <!-- Transition Examples -->
+      <section class="mb-12">
+        <h2 class="text-2xl font-semibold text-gray-800 mb-6">Smooth Transitions</h2>
+        <div class="space-y-4">
+          <button class="px-6 py-3 bg-red-500 text-white font-semibold rounded-lg hover:bg-red-600 hover:scale-110 transition-all duration-300">
+            Duration: 300ms
+          </button>
+          <button class="px-6 py-3 bg-orange-500 text-white font-semibold rounded-lg hover:bg-orange-600 hover:scale-110 transition-all duration-500">
+            Duration: 500ms
+          </button>
+          <button class="px-6 py-3 bg-yellow-500 text-white font-semibold rounded-lg hover:bg-yellow-600 hover:scale-110 transition-all duration-1000">
+            Duration: 1000ms
+          </button>
+        </div>
+      </section>
+    </div>
+  </body>
+</html>
