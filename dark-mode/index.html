@@ -1,0 +1,389 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tailwind Dark Mode</title>
+    <link rel="stylesheet" href="/src/style.css" />
+    <script>
+      // Handle dark mode toggle
+      function initDarkMode() {
+        const html = document.documentElement;
+        const toggle = document.getElementById('dark-mode-toggle');
+        
+        // Check localStorage for saved preference
+        const savedMode = localStorage.getItem('darkMode');
+        if (savedMode === 'true') {
+          html.classList.add('dark');
+          toggle.checked = true;
+        } else if (savedMode === 'false') {
+          html.classList.remove('dark');
+          toggle.checked = false;
+        } else {
+          // Use system preference if no saved preference
+          const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+          if (prefersDark) {
+            html.classList.add('dark');
+            toggle.checked = true;
+          }
+        }
+      }
+      
+      // Initialize on page load
+      initDarkMode();
+    </script>
+  </head>
+  <body class="bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 transition-colors duration-300">
+    <!-- Header -->
+    <header class="bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 sticky top-0 z-50 transition-colors duration-300">
+      <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
+        <div class="flex items-center gap-3">
+          <div class="text-2xl">🌓</div>
+          <h1 class="text-2xl font-bold text-gray-900 dark:text-white">DarkMode UI</h1>
+        </div>
+        
+        <!-- Dark Mode Toggle -->
+        <label class="flex items-center gap-2 cursor-pointer">
+          <span class="text-sm font-semibold text-gray-700 dark:text-gray-300">Dark Mode</span>
+          <input 
+            type="checkbox" 
+            id="dark-mode-toggle"
+            class="w-11 h-6 bg-gray-300 dark:bg-gray-600 rounded-full appearance-none cursor-pointer transition-colors duration-300"
+            onchange="
+              const html = document.documentElement;
+              if (this.checked) {
+                html.classList.add('dark');
+                localStorage.setItem('darkMode', 'true');
+              } else {
+                html.classList.remove('dark');
+                localStorage.setItem('darkMode', 'false');
+              }
+            "
+          />
+        </label>
+      </nav>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <h1 class="text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white mb-4">
+        Tailwind CSS Dark Mode
+      </h1>
+      <p class="text-lg text-gray-600 dark:text-gray-400 mb-12">
+        Toggle the dark mode switch above to see the theme change instantly
+      </p>
+
+      <!-- How It Works Section -->
+      <section class="mb-16">
+        <h2 class="text-3xl font-bold text-gray-900 dark:text-white mb-8">How Dark Mode Works</h2>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div class="bg-blue-50 dark:bg-blue-900 border-2 border-blue-200 dark:border-blue-700 rounded-lg p-6 transition-colors duration-300">
+            <h3 class="text-xl font-semibold text-blue-900 dark:text-blue-100 mb-4">Class-Based Mode</h3>
+            <p class="text-blue-800 dark:text-blue-200 mb-4">
+              Add the <code class="bg-blue-100 dark:bg-blue-800 px-2 py-1 rounded">dark</code> class to the <code class="bg-blue-100 dark:bg-blue-800 px-2 py-1 rounded">html</code> element to enable dark mode.
+            </p>
+            <code class="block bg-blue-100 dark:bg-blue-800 p-3 rounded text-sm text-blue-900 dark:text-blue-100">
+              &lt;html class="dark"&gt;
+            </code>
+          </div>
+
+          <div class="bg-green-50 dark:bg-green-900 border-2 border-green-200 dark:border-green-700 rounded-lg p-6 transition-colors duration-300">
+            <h3 class="text-xl font-semibold text-green-900 dark:text-green-100 mb-4">Media Query Mode</h3>
+            <p class="text-green-800 dark:text-green-200 mb-4">
+              Alternatively, use <code class="bg-green-100 dark:bg-green-800 px-2 py-1 rounded">media</code> to follow system preferences.
+            </p>
+            <code class="block bg-green-100 dark:bg-green-800 p-3 rounded text-sm text-green-900 dark:text-green-100">
+              darkMode: 'media' (default)
+            </code>
+          </div>
+        </div>
+      </section>
+
+      <!-- Basic Dark Mode Styles Section -->
+      <section class="mb-16">
+        <h2 class="text-3xl font-bold text-gray-900 dark:text-white mb-8">Basic Dark Mode Styling</h2>
+        
+        <div class="space-y-6">
+          <!-- Cards -->
+          <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md dark:shadow-lg p-6 border border-gray-200 dark:border-gray-700 transition-all duration-300">
+            <h3 class="text-2xl font-semibold text-gray-900 dark:text-white mb-2">Card Component</h3>
+            <p class="text-gray-600 dark:text-gray-400 mb-4">
+              This card uses <code class="bg-gray-100 dark:bg-gray-700 px-2 py-1 rounded text-sm">dark:</code> variants to style both light and dark modes.
+            </p>
+            <code class="block bg-gray-100 dark:bg-gray-700 p-3 rounded text-sm text-gray-800 dark:text-gray-200 overflow-x-auto">
+              &lt;div class="bg-white dark:bg-gray-800 dark:text-white"&gt;
+            </code>
+          </div>
+
+          <!-- Text Colors -->
+          <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md dark:shadow-lg p-6 border border-gray-200 dark:border-gray-700 transition-all duration-300">
+            <h3 class="text-2xl font-semibold text-gray-900 dark:text-white mb-6">Text Colors</h3>
+            <div class="space-y-3">
+              <div>
+                <p class="text-lg font-semibold text-gray-900 dark:text-white">Primary Text</p>
+                <p class="text-gray-600 dark:text-gray-400">text-gray-900 dark:text-white</p>
+              </div>
+              <div>
+                <p class="text-lg font-semibold text-gray-700 dark:text-gray-300">Secondary Text</p>
+                <p class="text-gray-600 dark:text-gray-400">text-gray-700 dark:text-gray-300</p>
+              </div>
+              <div>
+                <p class="text-lg font-semibold text-gray-600 dark:text-gray-400">Tertiary Text</p>
+                <p class="text-gray-600 dark:text-gray-400">text-gray-600 dark:text-gray-400</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Background Colors Section -->
+      <section class="mb-16">
+        <h2 class="text-3xl font-bold text-gray-900 dark:text-white mb-8">Background Colors</h2>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div class="bg-blue-50 dark:bg-blue-900 rounded-lg p-6 transition-colors duration-300">
+            <p class="font-semibold text-blue-900 dark:text-blue-100 mb-2">Primary Background</p>
+            <p class="text-sm text-blue-800 dark:text-blue-200">bg-blue-50 dark:bg-blue-900</p>
+          </div>
+
+          <div class="bg-indigo-50 dark:bg-indigo-900 rounded-lg p-6 transition-colors duration-300">
+            <p class="font-semibold text-indigo-900 dark:text-indigo-100 mb-2">Secondary Background</p>
+            <p class="text-sm text-indigo-800 dark:text-indigo-200">bg-indigo-50 dark:bg-indigo-900</p>
+          </div>
+
+          <div class="bg-green-50 dark:bg-green-900 rounded-lg p-6 transition-colors duration-300">
+            <p class="font-semibold text-green-900 dark:text-green-100 mb-2">Success Background</p>
+            <p class="text-sm text-green-800 dark:text-green-200">bg-green-50 dark:bg-green-900</p>
+          </div>
+
+          <div class="bg-red-50 dark:bg-red-900 rounded-lg p-6 transition-colors duration-300">
+            <p class="font-semibold text-red-900 dark:text-red-100 mb-2">Error Background</p>
+            <p class="text-sm text-red-800 dark:text-red-200">bg-red-50 dark:bg-red-900</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Buttons Section -->
+      <section class="mb-16">
+        <h2 class="text-3xl font-bold text-gray-900 dark:text-white mb-8">Dark Mode Buttons</h2>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div class="space-y-4">
+            <h3 class="font-semibold text-gray-900 dark:text-white">Primary Buttons</h3>
+            <button class="w-full px-6 py-3 bg-blue-600 hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-600 text-white font-semibold rounded-lg transition-colors duration-200">
+              Primary Button
+            </button>
+            <button class="w-full px-6 py-3 bg-green-600 hover:bg-green-700 dark:bg-green-500 dark:hover:bg-green-600 text-white font-semibold rounded-lg transition-colors duration-200">
+              Success Button
+            </button>
+          </div>
+
+          <div class="space-y-4">
+            <h3 class="font-semibold text-gray-900 dark:text-white">Secondary Buttons</h3>
+            <button class="w-full px-6 py-3 border-2 border-gray-300 dark:border-gray-600 text-gray-900 dark:text-white hover:bg-gray-50 dark:hover:bg-gray-800 font-semibold rounded-lg transition-colors duration-200">
+              Secondary Button
+            </button>
+            <button class="w-full px-6 py-3 bg-gray-200 dark:bg-gray-700 text-gray-900 dark:text-white hover:bg-gray-300 dark:hover:bg-gray-600 font-semibold rounded-lg transition-colors duration-200">
+              Ghost Button
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Form Inputs Section -->
+      <section class="mb-16">
+        <h2 class="text-3xl font-bold text-gray-900 dark:text-white mb-8">Form Inputs in Dark Mode</h2>
+        
+        <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md dark:shadow-lg p-6 border border-gray-200 dark:border-gray-700 transition-all duration-300 max-w-md">
+          <div class="mb-6">
+            <label class="block text-sm font-semibold text-gray-900 dark:text-white mb-2">Email Address</label>
+            <input 
+              type="email" 
+              placeholder="you@example.com"
+              class="w-full px-4 py-2 border-2 border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white rounded-lg focus:outline-none focus:border-blue-500 dark:focus:border-blue-400 placeholder-gray-400 dark:placeholder-gray-500 transition-colors duration-200"
+            />
+          </div>
+
+          <div class="mb-6">
+            <label class="block text-sm font-semibold text-gray-900 dark:text-white mb-2">Message</label>
+            <textarea 
+              placeholder="Enter your message..."
+              rows="4"
+              class="w-full px-4 py-2 border-2 border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white rounded-lg focus:outline-none focus:border-blue-500 dark:focus:border-blue-400 placeholder-gray-400 dark:placeholder-gray-500 transition-colors duration-200"
+            ></textarea>
+          </div>
+
+          <div class="mb-6 flex items-center gap-2">
+            <input 
+              type="checkbox" 
+              id="subscribe"
+              class="w-4 h-4"
+            />
+            <label for="subscribe" class="text-sm text-gray-700 dark:text-gray-300">Subscribe to updates</label>
+          </div>
+
+          <button class="w-full px-6 py-2 bg-blue-600 hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-600 text-white font-semibold rounded-lg transition-colors duration-200">
+            Submit
+          </button>
+        </div>
+      </section>
+
+      <!-- Shadows & Borders -->
+      <section class="mb-16">
+        <h2 class="text-3xl font-bold text-gray-900 dark:text-white mb-8">Shadows & Borders in Dark Mode</h2>
+        
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div class="bg-white dark:bg-gray-800 shadow-sm dark:shadow-md p-6 rounded-lg border border-gray-200 dark:border-gray-700 transition-all duration-300">
+            <p class="font-semibold text-gray-900 dark:text-white mb-1">Shadow Small</p>
+            <p class="text-sm text-gray-600 dark:text-gray-400">shadow-sm dark:shadow-md</p>
+          </div>
+
+          <div class="bg-white dark:bg-gray-800 shadow-md dark:shadow-lg p-6 rounded-lg border border-gray-200 dark:border-gray-700 transition-all duration-300">
+            <p class="font-semibold text-gray-900 dark:text-white mb-1">Shadow Medium</p>
+            <p class="text-sm text-gray-600 dark:text-gray-400">shadow-md dark:shadow-lg</p>
+          </div>
+
+          <div class="bg-white dark:bg-gray-800 shadow-lg dark:shadow-2xl p-6 rounded-lg border border-gray-200 dark:border-gray-700 transition-all duration-300">
+            <p class="font-semibold text-gray-900 dark:text-white mb-1">Shadow Large</p>
+            <p class="text-sm text-gray-600 dark:text-gray-400">shadow-lg dark:shadow-2xl</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- State Variants in Dark Mode -->
+      <section class="mb-16">
+        <h2 class="text-3xl font-bold text-gray-900 dark:text-white mb-8">State Variants in Dark Mode</h2>
+        
+        <div class="space-y-6">
+          <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md dark:shadow-lg p-6 border border-gray-200 dark:border-gray-700 transition-all duration-300">
+            <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-4">Hover States</h3>
+            <button class="px-6 py-3 bg-purple-500 hover:bg-purple-600 dark:bg-purple-600 dark:hover:bg-purple-700 text-white font-semibold rounded-lg transition-colors duration-200">
+              Hover Over Me
+            </button>
+          </div>
+
+          <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md dark:shadow-lg p-6 border border-gray-200 dark:border-gray-700 transition-all duration-300">
+            <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-4">Focus States</h3>
+            <input 
+              type="text"
+              placeholder="Focus me..."
+              class="w-full px-4 py-3 border-2 border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white rounded-lg focus:border-blue-500 dark:focus:border-blue-400 focus:ring-2 focus:ring-blue-200 dark:focus:ring-blue-900 outline-none transition-all duration-200"
+            />
+          </div>
+
+          <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md dark:shadow-lg p-6 border border-gray-200 dark:border-gray-700 transition-all duration-300">
+            <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-4">Disabled States</h3>
+            <button disabled class="px-6 py-3 bg-gray-300 dark:bg-gray-600 text-gray-600 dark:text-gray-400 font-semibold rounded-lg cursor-not-allowed opacity-60">
+              Disabled Button
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Code Example -->
+      <section class="mb-16">
+        <h2 class="text-3xl font-bold text-gray-900 dark:text-white mb-8">Implementation Examples</h2>
+        
+        <div class="bg-gray-900 dark:bg-black rounded-lg p-6 overflow-x-auto">
+          <p class="text-gray-400 text-sm mb-4">Basic dark mode component structure:</p>
+          <code class="text-green-400 text-sm font-mono leading-relaxed">
+            <div>&lt;div class="bg-white dark:bg-gray-800"&gt;</div>
+            <div class="ml-4">&lt;h1 class="text-gray-900 dark:text-white"&gt;</div>
+            <div class="ml-8">Title</div>
+            <div class="ml-4">&lt;/h1&gt;</div>
+            <div class="ml-4">&lt;p class="text-gray-600 dark:text-gray-400"&gt;</div>
+            <div class="ml-8">Description</div>
+            <div class="ml-4">&lt;/p&gt;</div>
+            <div>&lt;/div&gt;</div>
+          </code>
+        </div>
+      </section>
+
+      <!-- Configuration Section -->
+      <section class="mb-16">
+        <h2 class="text-3xl font-bold text-gray-900 dark:text-white mb-8">Configuration</h2>
+        
+        <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md dark:shadow-lg p-6 border border-gray-200 dark:border-gray-700 transition-all duration-300">
+          <p class="text-gray-600 dark:text-gray-400 mb-4">
+            This project uses <span class="font-semibold text-gray-900 dark:text-white">class-based dark mode</span> via <code class="bg-gray-100 dark:bg-gray-700 px-2 py-1 rounded text-sm">darkMode: 'class'</code> in tailwind.config.js
+          </p>
+          
+          <div class="bg-gray-100 dark:bg-gray-700 rounded p-4 mb-4">
+            <code class="text-gray-800 dark:text-gray-200 text-sm">
+              <div>// tailwind.config.js</div>
+              <div>export default {'{'}' </div>
+              <div class="ml-4">darkMode: 'class',</div>
+              <div class="ml-4">// ... other config</div>
+              <div>{'}'}</div>
+            </code>
+          </div>
+
+          <p class="text-gray-600 dark:text-gray-400">
+            This allows manual control via JavaScript and localStorage, with fallback to system preferences on first load.
+          </p>
+        </div>
+      </section>
+
+      <!-- Tips & Best Practices -->
+      <section class="mb-16">
+        <h2 class="text-3xl font-bold text-gray-900 dark:text-white mb-8">Tips & Best Practices</h2>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div class="bg-blue-50 dark:bg-blue-900 rounded-lg p-6 border border-blue-200 dark:border-blue-700 transition-all duration-300">
+            <h3 class="text-lg font-semibold text-blue-900 dark:text-blue-100 mb-3">✅ Do</h3>
+            <ul class="space-y-2 text-sm text-blue-800 dark:text-blue-200">
+              <li>• Use consistent color schemes</li>
+              <li>• Test contrast ratios</li>
+              <li>• Provide user preference control</li>
+              <li>• Use dark: prefix consistently</li>
+              <li>• Consider reduced motion preferences</li>
+            </ul>
+          </div>
+
+          <div class="bg-red-50 dark:bg-red-900 rounded-lg p-6 border border-red-200 dark:border-red-700 transition-all duration-300">
+            <h3 class="text-lg font-semibold text-red-900 dark:text-red-100 mb-3">❌ Don't</h3>
+            <ul class="space-y-2 text-sm text-red-800 dark:text-red-200">
+              <li>• Use pure black/white (too harsh)</li>
+              <li>• Forget about accessibility</li>
+              <li>• Ignore system preferences</li>
+              <li>• Use inconsistent dark variants</li>
+              <li>• Apply dark mode to all elements</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-100 dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700 mt-16 py-12 transition-colors duration-300">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
+          <div>
+            <h3 class="font-semibold text-gray-900 dark:text-white mb-4">Product</h3>
+            <ul class="space-y-2 text-sm text-gray-600 dark:text-gray-400">
+              <li><a href="#" class="hover:text-gray-900 dark:hover:text-white transition-colors">Features</a></li>
+              <li><a href="#" class="hover:text-gray-900 dark:hover:text-white transition-colors">Pricing</a></li>
+            </ul>
+          </div>
+          <div>
+            <h3 class="font-semibold text-gray-900 dark:text-white mb-4">Company</h3>
+            <ul class="space-y-2 text-sm text-gray-600 dark:text-gray-400">
+              <li><a href="#" class="hover:text-gray-900 dark:hover:text-white transition-colors">About</a></li>
+              <li><a href="#" class="hover:text-gray-900 dark:hover:text-white transition-colors">Blog</a></li>
+            </ul>
+          </div>
+          <div>
+            <h3 class="font-semibold text-gray-900 dark:text-white mb-4">Resources</h3>
+            <ul class="space-y-2 text-sm text-gray-600 dark:text-gray-400">
+              <li><a href="#" class="hover:text-gray-900 dark:hover:text-white transition-colors">Docs</a></li>
+              <li><a href="#" class="hover:text-gray-900 dark:hover:text-white transition-colors">Support</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="border-t border-gray-200 dark:border-gray-700 pt-8 text-center text-sm text-gray-600 dark:text-gray-400">
+          <p>&copy; 2026 DarkMode UI. All rights reserved.</p>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

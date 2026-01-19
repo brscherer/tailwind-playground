@@ -1,6 +1,12 @@
 # Tailwind CSS Playground
 
-A collection of proof-of-concept projects demonstrating the core concepts of [Tailwind CSS](https://tailwindcss.com/).
+A collection of proof-of-concept projects demonstrating the core concepts of [Tailwind ### 1. **Start here**: [Utility Classes](./utility-classes) - Understand the utility-first philosophy
+2. **Then**: [States](./states) - Make your UI interactive and accessible
+3. **Next**: [Responsive Design](./responsive-design) - Build mobile-first layouts
+4. **Explore**: [Theme Variables](./theme-variables) - Customize Tailwind to match your brand
+5. **Deepen**: [Colors](./colors) - Master the color system
+6. **Advanced**: [Custom Styles](./custom-styles) - Extend beyond utilities
+7. **Expert**: [Functions & Directives](./functions-directives) - Leverage advanced features](https://tailwindcss.com/).
 
 This repository is designed for learning and experimentation with Tailwind CSS's utility-first approach to styling. Each subdirectory contains a standalone project focused on a specific core concept.
 
@@ -23,15 +29,18 @@ Master interactive styling with hover, focus, active, disabled, and other state 
 - **Dev server**: `http://localhost:5174`
 
 ### 3. **Responsive Design** (`./responsive-design`)
-*Coming soon* - Build mobile-first layouts with Tailwind's responsive breakpoints.
+Build mobile-first layouts with Tailwind's responsive breakpoints. Demonstrates how styles adapt across six breakpoints from mobile to large desktop screens.
 
 - **Key concepts**: Mobile-first design, breakpoint prefixes, responsive images
 - **Examples**: Adaptive layouts, breakpoint-specific styling
+- **Dev server**: `http://localhost:5175`
 
 ### 4. **Dark Mode** (`./dark-mode`)
-*Coming soon* - Implement theme switching and dark mode support.
+Implement theme switching and dark mode support with class-based and media query approaches. Learn how to create accessible, visually pleasing dark theme variants.
 
 - **Key concepts**: Dark mode variants, theme configuration, user preferences
+- **Examples**: Dark mode toggle, color schemes, form styling in dark mode
+- **Dev server**: `http://localhost:5176`
 
 ### 5. **Theme Variables** (`./theme-variables`)
 *Coming soon* - Customize and extend Tailwind's theme system.
@@ -133,8 +142,8 @@ We recommend following this learning path to understand Tailwind CSS progressive
 tailwind-playground/
 ├── utility-classes/          ✅ Complete
 ├── states/                   ✅ Complete
-├── responsive-design/        📋 Planned
-├── dark-mode/                📋 Planned
+├── responsive-design/        ✅ Complete
+├── dark-mode/                ✅ Complete
 ├── theme-variables/          📋 Planned
 ├── colors/                   📋 Planned
 ├── custom-styles/            📋 Planned
