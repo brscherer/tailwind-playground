@@ -71,9 +71,11 @@ Understand how Tailwind scans source files for class names and purges unused CSS
 - **Dev server**: `http://localhost:5180`
 
 ### 9. **Functions & Directives** (`./functions-directives`)
-*Coming soon* - Use Tailwind's CSS functions and directives for advanced styling.
+Master advanced CSS functions and directives for sophisticated styling. Learn @layer, theme(), @supports, @media, @keyframes, and how to combine them for powerful custom CSS.
 
-- **Key concepts**: @tailwind, @layer, @apply, theme() function
+- **Key concepts**: @tailwind, @layer, @apply, theme() function, CSS @-rules, progressive enhancement
+- **Examples**: theme() usage, CSS variables, animations, accessibility, progressive enhancement
+- **Dev server**: `http://localhost:5181`
 
 ## 🚀 Quick Start
 
@@ -156,7 +158,7 @@ tailwind-playground/
 ├── colors/                   ✅ Complete
 ├── custom-styles/            ✅ Complete
 ├── detecting-classes/        ✅ Complete
-├── functions-directives/     📋 Planned
+├── functions-directives/     ✅ Complete
 ├── README.md
 └── .git/
 ```

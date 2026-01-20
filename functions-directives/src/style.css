@@ -1,0 +1,68 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Define CSS variables using theme() function */
+@layer base {
+  :root {
+    --color-brand-light: theme('colors.indigo.100');
+    --color-brand: theme('colors.indigo.600');
+    --color-brand-dark: theme('colors.indigo.900');
+    --spacing-dynamic: theme('spacing.4');
+  }
+}
+
+/* Example custom components using @apply and theme() */
+@layer components {
+  .notification {
+    @apply border-l-4 p-4 rounded;
+    border-color: theme('colors.blue.600');
+    background-color: theme('colors.blue.50');
+  }
+
+  .notification.success {
+    border-color: theme('colors.green.600');
+    background-color: theme('colors.green.50');
+  }
+
+  .notification.error {
+    border-color: theme('colors.red.600');
+    background-color: theme('colors.red.50');
+  }
+
+  .card-elevated {
+    @apply bg-white rounded-lg p-6;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  }
+}
+
+/* Custom animations */
+@keyframes gradient-shift {
+  0% {
+    background-position: 0% center;
+  }
+  50% {
+    background-position: 100% center;
+  }
+  100% {
+    background-position: 0% center;
+  }
+}
+
+/* Accessibility: Respect reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Progressive enhancement: Grid support */
+@supports (display: grid) {
+  .grid-auto-fit {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: theme('spacing.4');
+  }
+}

@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Functions & Directives in Tailwind CSS</title>
+  <link rel="stylesheet" href="./src/style.css">
+</head>
+<body class="bg-gray-50">
+  <!-- Navigation Header -->
+  <nav class="sticky top-0 bg-white border-b border-gray-200 shadow-sm z-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between items-center h-16">
+        <h1 class="text-2xl font-bold text-gray-900">Functions & Directives</h1>
+        <p class="text-sm text-gray-600">Advanced CSS with Tailwind</p>
+      </div>
+    </div>
+  </nav>
+
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <!-- Section 1: Core Directives Overview -->
+    <section class="mb-12">
+      <div class="bg-white rounded-lg shadow p-6 mb-6">
+        <h2 class="text-3xl font-bold text-gray-900 mb-4">Core Tailwind Directives</h2>
+        
+        <div class="grid md:grid-cols-2 gap-6">
+          <!-- @tailwind -->
+          <div class="border border-blue-200 rounded p-4 bg-blue-50">
+            <h3 class="font-semibold text-blue-900 mb-2 text-lg">@tailwind</h3>
+            <p class="text-sm text-blue-800 mb-3">Injects Tailwind's layers of CSS.</p>
+            <code class="block bg-white p-2 rounded text-xs border border-blue-200 mb-2">@tailwind base;</code>
+            <code class="block bg-white p-2 rounded text-xs border border-blue-200 mb-2">@tailwind components;</code>
+            <code class="block bg-white p-2 rounded text-xs border border-blue-200">@tailwind utilities;</code>
+            <p class="text-xs text-blue-700 mt-3">Place these three lines in your main CSS file. They're replaced with the actual CSS during build.</p>
+          </div>
+
+          <!-- @layer -->
+          <div class="border border-purple-200 rounded p-4 bg-purple-50">
+            <h3 class="font-semibold text-purple-900 mb-2 text-lg">@layer</h3>
+            <p class="text-sm text-purple-800 mb-3">Adds CSS to a specific cascade layer.</p>
+            <code class="block bg-white p-2 rounded text-xs border border-purple-200 mb-2">@layer base { ... }</code>
+            <code class="block bg-white p-2 rounded text-xs border border-purple-200 mb-2">@layer components { ... }</code>
+            <code class="block bg-white p-2 rounded text-xs border border-purple-200">@layer utilities { ... }</code>
+            <p class="text-xs text-purple-700 mt-3">Controls CSS specificity. Components > Base for precedence, Utilities > Components for overriding.</p>
+          </div>
+
+          <!-- @apply -->
+          <div class="border border-green-200 rounded p-4 bg-green-50">
+            <h3 class="font-semibold text-green-900 mb-2 text-lg">@apply</h3>
+            <p class="text-sm text-green-800 mb-3">Applies utility classes to a selector.</p>
+            <code class="block bg-white p-2 rounded text-xs border border-green-200 mb-2">.btn {<br/>  @apply px-4 py-2 rounded;<br/>}</code>
+            <code class="block bg-white p-2 rounded text-xs border border-green-200">/* Result: applies px-4, py-2, rounded styles */</code>
+            <p class="text-xs text-green-700 mt-3">Mix utilities into component CSS. Useful for reducing HTML class bloat.</p>
+          </div>
+
+          <!-- @supports -->
+          <div class="border border-orange-200 rounded p-4 bg-orange-50">
+            <h3 class="font-semibold text-orange-900 mb-2 text-lg">@supports</h3>
+            <p class="text-sm text-orange-800 mb-3">CSS feature detection.</p>
+            <code class="block bg-white p-2 rounded text-xs border border-orange-200 mb-2">@supports (display: grid) {<br/>  /* Modern styles */<br/>}</code>
+            <p class="text-xs text-orange-700 mt-3">Apply styles only if browser supports a feature. Great for progressive enhancement.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="bg-indigo-50 border-l-4 border-indigo-600 p-6 rounded">
+        <h3 class="font-semibold text-indigo-900 mb-2">💡 Key Insight</h3>
+        <p class="text-indigo-800">These directives are processed at build time by PostCSS. They're not standard CSS—they're Tailwind's way of organizing and composing styles.</p>
+      </div>
+    </section>
+
+    <!-- Section 2: The theme() Function -->
+    <section class="mb-12">
+      <div class="bg-white rounded-lg shadow p-6 mb-6">
+        <h2 class="text-3xl font-bold text-gray-900 mb-6">The theme() Function</h2>
+        
+        <div class="mb-6 p-4 bg-gray-100 rounded border border-gray-300">
+          <p class="text-sm font-mono text-gray-800">
+            <strong>Usage:</strong> theme('path.to.value')
+          </p>
+          <p class="text-xs text-gray-600 mt-2">Access theme configuration values in CSS. Replaces paths with actual values.</p>
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-6">
+          <!-- Example 1: Colors -->
+          <div class="border border-gray-200 rounded p-4">
+            <h3 class="font-semibold text-gray-900 mb-3">Colors</h3>
+            <code class="block bg-gray-50 p-3 rounded text-xs border border-gray-300 mb-3">
+.header {<br/>
+&nbsp;&nbsp;background-color: theme('colors.blue.600');<br/>
+&nbsp;&nbsp;color: theme('colors.white');<br/>
+}</code>
+            <div class="bg-blue-600 text-white p-4 rounded text-center font-semibold">
+              Styled with theme('colors.blue.600')
+            </div>
+          </div>
+
+          <!-- Example 2: Spacing -->
+          <div class="border border-gray-200 rounded p-4">
+            <h3 class="font-semibold text-gray-900 mb-3">Spacing</h3>
+            <code class="block bg-gray-50 p-3 rounded text-xs border border-gray-300 mb-3">
+.card {<br/>
+&nbsp;&nbsp;padding: theme('spacing.6');<br/>
+&nbsp;&nbsp;margin-bottom: theme('spacing.4');<br/>
+}</code>
+            <div class="bg-gray-100 p-6 rounded border-2 border-dashed border-gray-400 mb-4">
+              <p class="text-sm text-gray-600">Padding: theme('spacing.6')</p>
+            </div>
+            <p class="text-xs text-gray-600">Margin-bottom: theme('spacing.4')</p>
+          </div>
+
+          <!-- Example 3: Font Sizes -->
+          <div class="border border-gray-200 rounded p-4">
+            <h3 class="font-semibold text-gray-900 mb-3">Font Sizes</h3>
+            <code class="block bg-gray-50 p-3 rounded text-xs border border-gray-300 mb-3">
+.heading {<br/>
+&nbsp;&nbsp;font-size: theme('fontSize.2xl');<br/>
+&nbsp;&nbsp;line-height: theme('lineHeight.tight');<br/>
+}</code>
+            <div class="font-bold" style="font-size: calc(var(--text-2xl-size) * 1px)">
+              Heading with theme('fontSize.2xl')
+            </div>
+          </div>
+
+          <!-- Example 4: Border Radius -->
+          <div class="border border-gray-200 rounded p-4">
+            <h3 class="font-semibold text-gray-900 mb-3">Border Radius</h3>
+            <code class="block bg-gray-50 p-3 rounded text-xs border border-gray-300 mb-3">
+.btn {<br/>
+&nbsp;&nbsp;border-radius: theme('borderRadius.lg');<br/>
+}</code>
+            <button class="bg-indigo-600 text-white px-6 py-2 rounded-lg font-semibold hover:bg-indigo-700 transition">
+              Button with theme('borderRadius.lg')
+            </button>
+          </div>
+        </div>
+
+        <div class="mt-6 p-4 bg-blue-50 border border-blue-200 rounded">
+          <p class="text-sm text-blue-900"><strong>🎯 Why Use theme()?</strong> It keeps your custom CSS synchronized with your Tailwind config. Change a color in the config and it updates everywhere.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 3: CSS Variables Integration -->
+    <section class="mb-12">
+      <div class="bg-white rounded-lg shadow p-6 mb-6">
+        <h2 class="text-3xl font-bold text-gray-900 mb-6">CSS Variables Integration</h2>
+        
+        <div class="mb-6 p-4 bg-gradient-to-r from-pink-100 to-purple-100 rounded border border-purple-300">
+          <p class="font-semibold text-purple-900 mb-2">Combining theme() with CSS Variables</p>
+          <p class="text-sm text-purple-800">Use theme() to set CSS variables in your config, then access them dynamically in HTML.</p>
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-6 mb-6">
+          <!-- Example 1: Color Variables -->
+          <div class="border border-gray-200 rounded p-4">
+            <h3 class="font-semibold text-gray-900 mb-3">Color Variables</h3>
+            <code class="block bg-gray-50 p-3 rounded text-xs border border-gray-300 mb-3 overflow-x-auto">
+:root {<br/>
+&nbsp;&nbsp;--color-brand: theme('colors.indigo.600');<br/>
+&nbsp;&nbsp;--color-text: theme('colors.gray.900');<br/>
+}</code>
+            <div class="p-4 rounded" style="background-color: var(--color-brand); color: white;">
+              <p class="font-semibold">Styled with CSS variable</p>
+              <p class="text-sm">--color-brand: theme('colors.indigo.600')</p>
+            </div>
+          </div>
+
+          <!-- Example 2: Spacing Variables -->
+          <div class="border border-gray-200 rounded p-4">
+            <h3 class="font-semibold text-gray-900 mb-3">Spacing Variables</h3>
+            <code class="block bg-gray-50 p-3 rounded text-xs border border-gray-300 mb-3 overflow-x-auto">
+:root {<br/>
+&nbsp;&nbsp;--spacing-base: theme('spacing.4');<br/>
+&nbsp;&nbsp;--spacing-lg: theme('spacing.8');<br/>
+}</code>
+            <div class="bg-blue-100 rounded p-2 mb-2">
+              <div class="bg-white p-2 rounded text-xs text-gray-600">
+                Base spacing: var(--spacing-base)
+              </div>
+            </div>
+            <div class="bg-blue-100 rounded p-2">
+              <div class="bg-white p-4 rounded text-xs text-gray-600">
+                Large spacing: var(--spacing-lg)
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="border border-green-200 rounded p-4 bg-green-50">
+          <h3 class="font-semibold text-green-900 mb-2">✅ Real-World Example: Dynamic Theme</h3>
+          <code class="block bg-white p-3 rounded text-xs border border-green-200 mb-3">
+/* CSS: Set base variables */
+:root {
+  --color-brand-light: theme('colors.indigo.100');
+  --color-brand: theme('colors.indigo.600');
+  --color-brand-dark: theme('colors.indigo.900');
+}
+
+/* HTML: Use the variables */
+&lt;div class="text-brand bg-gradient-to-r from-brand-light to-brand"&gt;
+  Theme from config!
+&lt;/div&gt;
+          </code>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 4: CSS @-rules in Tailwind -->
+    <section class="mb-12">
+      <div class="bg-white rounded-lg shadow p-6 mb-6">
+        <h2 class="text-3xl font-bold text-gray-900 mb-6">Advanced CSS @-Rules</h2>
+        
+        <div class="space-y-4">
+          <!-- @media -->
+          <div class="border border-gray-200 rounded p-4">
+            <div class="flex items-start gap-4">
+              <div class="flex-shrink-0">
+                <div class="flex items-center justify-center h-8 w-8 rounded-md bg-blue-600 text-white font-bold">1</div>
+              </div>
+              <div class="flex-1">
+                <h3 class="font-semibold text-gray-900 mb-2">@media (Media Queries)</h3>
+                <code class="block bg-gray-50 p-3 rounded text-xs border border-gray-300 mb-2 overflow-x-auto">
+@media (max-width: theme('screens.md')) {
+  .sidebar { display: none; }
+}
+                </code>
+                <p class="text-sm text-gray-700 mb-3">Apply styles based on screen size. Tailwind handles this with responsive prefixes, but you can use @media directly for complex conditions.</p>
+                <div class="bg-gray-100 p-3 rounded text-sm">
+                  <p class="text-gray-800">👉 Resize your browser to see responsive behavior</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- @keyframes -->
+          <div class="border border-gray-200 rounded p-4">
+            <div class="flex items-start gap-4">
+              <div class="flex-shrink-0">
+                <div class="flex items-center justify-center h-8 w-8 rounded-md bg-purple-600 text-white font-bold">2</div>
+              </div>
+              <div class="flex-1">
+                <h3 class="font-semibold text-gray-900 mb-2">@keyframes (Animations)</h3>
+                <code class="block bg-gray-50 p-3 rounded text-xs border border-gray-300 mb-2 overflow-x-auto">
+@keyframes slide-in {
+  from { transform: translateX(-100%); }
+  to { transform: translateX(0); }
+}
+                </code>
+                <p class="text-sm text-gray-700 mb-3">Define custom animations. Use with Tailwind's animation utilities or custom classes.</p>
+                <div class="space-y-2">
+                  <div class="bg-gradient-to-r from-purple-600 to-blue-600 text-white p-3 rounded animate-pulse">
+                    Animated element
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- @supports -->
+          <div class="border border-gray-200 rounded p-4">
+            <div class="flex items-start gap-4">
+              <div class="flex-shrink-0">
+                <div class="flex items-center justify-center h-8 w-8 rounded-md bg-green-600 text-white font-bold">3</div>
+              </div>
+              <div class="flex-1">
+                <h3 class="font-semibold text-gray-900 mb-2">@supports (Feature Detection)</h3>
+                <code class="block bg-gray-50 p-3 rounded text-xs border border-gray-300 mb-2 overflow-x-auto">
+@supports (display: grid) {
+  .grid-layout {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+                </code>
+                <p class="text-sm text-gray-700 mb-3">Progressive enhancement: use modern CSS if supported, fallback otherwise.</p>
+                <div class="grid gap-2" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));">
+                  <div class="bg-green-100 p-3 rounded text-center text-sm">Grid 1</div>
+                  <div class="bg-green-100 p-3 rounded text-center text-sm">Grid 2</div>
+                  <div class="bg-green-100 p-3 rounded text-center text-sm">Grid 3</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- @import -->
+          <div class="border border-gray-200 rounded p-4">
+            <div class="flex items-start gap-4">
+              <div class="flex-shrink-0">
+                <div class="flex items-center justify-center h-8 w-8 rounded-md bg-orange-600 text-white font-bold">4</div>
+              </div>
+              <div class="flex-1">
+                <h3 class="font-semibold text-gray-900 mb-2">@import (Font/Stylesheet Imports)</h3>
+                <code class="block bg-gray-50 p-3 rounded text-xs border border-gray-300 mb-2 overflow-x-auto">
+@import url('https://fonts.googleapis.com/css2?family=Inter');
+
+@layer base {
+  body { font-family: 'Inter', sans-serif; }
+}
+                </code>
+                <p class="text-sm text-gray-700">Load external resources. Place in CSS file, not in HTML head.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- @font-face -->
+          <div class="border border-gray-200 rounded p-4">
+            <div class="flex items-start gap-4">
+              <div class="flex-shrink-0">
+                <div class="flex items-center justify-center h-8 w-8 rounded-md bg-red-600 text-white font-bold">5</div>
+              </div>
+              <div class="flex-1">
+                <h3 class="font-semibold text-gray-900 mb-2">@font-face (Custom Fonts)</h3>
+                <code class="block bg-gray-50 p-3 rounded text-xs border border-gray-300 mb-2 overflow-x-auto">
+@font-face {
+  font-family: 'CustomFont';
+  src: url('/fonts/custom.woff2') format('woff2');
+}
+                </code>
+                <p class="text-sm text-gray-700">Define custom fonts from files. Use in theme or directly in CSS.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 5: Practical Examples -->
+    <section class="mb-12">
+      <div class="bg-white rounded-lg shadow p-6 mb-6">
+        <h2 class="text-3xl font-bold text-gray-900 mb-6">Practical Examples</h2>
+        
+        <!-- Example 1: Dynamic Component -->
+        <div class="mb-8 border border-gray-200 rounded p-6 bg-gray-50">
+          <h3 class="text-xl font-semibold text-gray-900 mb-4">✨ Example 1: Dynamic Component with theme()</h3>
+          <code class="block bg-white p-3 rounded text-xs border border-gray-300 mb-4 overflow-x-auto">
+/* CSS */
+.notification {
+  border-left: 4px solid theme('colors.blue.600');
+  background-color: theme('colors.blue.50');
+  padding: theme('spacing.4');
+  border-radius: theme('borderRadius.md');
+}
+
+.notification.success {
+  border-color: theme('colors.green.600');
+  background-color: theme('colors.green.50');
+}
+          </code>
+          
+          <div class="space-y-3">
+            <div class="border-l-4 border-blue-600 bg-blue-50 p-4 rounded">
+              <p class="font-semibold text-blue-900">Info Notification</p>
+              <p class="text-sm text-blue-800">Using theme('colors.blue.*')</p>
+            </div>
+            <div class="border-l-4 border-green-600 bg-green-50 p-4 rounded">
+              <p class="font-semibold text-green-900">Success Notification</p>
+              <p class="text-sm text-green-800">Using theme('colors.green.*')</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Example 2: Responsive Layout -->
+        <div class="mb-8 border border-gray-200 rounded p-6 bg-gray-50">
+          <h3 class="text-xl font-semibold text-gray-900 mb-4">📱 Example 2: @media for Advanced Responsiveness</h3>
+          <code class="block bg-white p-3 rounded text-xs border border-gray-300 mb-4 overflow-x-auto">
+@media (prefers-reduced-motion: reduce) {
+  * { animation: none !important; transition: none !important; }
+}
+
+@media (prefers-dark-interface) {
+  body { background: #1f2937; color: #f3f4f6; }
+}
+          </code>
+          
+          <div class="bg-gradient-to-r from-indigo-100 to-blue-100 p-6 rounded">
+            <p class="text-sm text-gray-700 font-semibold mb-2">📝 Note on Your Browser:</p>
+            <ul class="text-sm text-gray-700 space-y-1">
+              <li>✓ @media (prefers-reduced-motion) - Respects accessibility preferences</li>
+              <li>✓ @media (prefers-dark-interface) - Detects system dark mode preference</li>
+              <li>✓ @media (prefers-color-scheme) - Forces light/dark based on preference</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Example 3: Complex Animations -->
+        <div class="mb-8 border border-gray-200 rounded p-6 bg-gray-50">
+          <h3 class="text-xl font-semibold text-gray-900 mb-4">🎬 Example 3: Custom Animations with @keyframes</h3>
+          <code class="block bg-white p-3 rounded text-xs border border-gray-300 mb-4 overflow-x-auto">
+@keyframes gradient-shift {
+  0% { background-position: 0% center; }
+  50% { background-position: 100% center; }
+  100% { background-position: 0% center; }
+}
+
+.animated-gradient {
+  background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+  background-size: 400% 400%;
+  animation: gradient-shift 15s ease infinite;
+}
+          </code>
+          
+          <div class="h-32 rounded-lg" style="
+            background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+            background-size: 400% 400%;
+            animation: gradient-shift 15s ease infinite;
+          "></div>
+        </div>
+
+        <!-- Example 4: Progressive Enhancement -->
+        <div class="border border-gray-200 rounded p-6 bg-gray-50">
+          <h3 class="text-xl font-semibold text-gray-900 mb-4">🚀 Example 4: Progressive Enhancement with @supports</h3>
+          <code class="block bg-white p-3 rounded text-xs border border-gray-300 mb-4 overflow-x-auto">
+/* Fallback for all browsers */
+.layout { display: flex; flex-wrap: wrap; }
+
+/* Modern browsers */
+@supports (display: grid) {
+  .layout {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: theme('spacing.4');
+  }
+}
+          </code>
+          
+          <div class="grid gap-4" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));">
+            <div class="bg-gradient-to-br from-purple-500 to-pink-500 text-white p-4 rounded font-semibold text-center">
+              Card 1
+            </div>
+            <div class="bg-gradient-to-br from-blue-500 to-cyan-500 text-white p-4 rounded font-semibold text-center">
+              Card 2
+            </div>
+            <div class="bg-gradient-to-br from-green-500 to-emerald-500 text-white p-4 rounded font-semibold text-center">
+              Card 3
+            </div>
+          </div>
+          <p class="text-xs text-gray-600 mt-3">Modern browsers: CSS Grid | Older browsers: Flexbox</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 6: Best Practices -->
+    <section class="mb-12">
+      <div class="bg-white rounded-lg shadow p-6">
+        <h2 class="text-3xl font-bold text-gray-900 mb-6">Best Practices & Tips</h2>
+        
+        <div class="grid md:grid-cols-2 gap-6">
+          <!-- Do's -->
+          <div class="bg-green-50 border border-green-200 rounded p-6">
+            <h3 class="text-lg font-bold text-green-900 mb-4">✅ Do's</h3>
+            <ul class="space-y-3 text-sm">
+              <li class="flex gap-3">
+                <span class="text-green-600 font-bold flex-shrink-0">✓</span>
+                <span><strong>Use theme() in custom CSS</strong> - Keeps styles in sync with config</span>
+              </li>
+              <li class="flex gap-3">
+                <span class="text-green-600 font-bold flex-shrink-0">✓</span>
+                <span><strong>Use @layer for organization</strong> - Prevents specificity issues</span>
+              </li>
+              <li class="flex gap-3">
+                <span class="text-green-600 font-bold flex-shrink-0">✓</span>
+                <span><strong>Use @supports for progressive enhancement</strong> - Works in all browsers</span>
+              </li>
+              <li class="flex gap-3">
+                <span class="text-green-600 font-bold flex-shrink-0">✓</span>
+                <span><strong>Combine with CSS variables</strong> - For dynamic theming</span>
+              </li>
+              <li class="flex gap-3">
+                <span class="text-green-600 font-bold flex-shrink-0">✓</span>
+                <span><strong>Prefer utilities over custom CSS</strong> - Utility classes are more maintainable</span>
+              </li>
+              <li class="flex gap-3">
+                <span class="text-green-600 font-bold flex-shrink-0">✓</span>
+                <span><strong>Use @apply sparingly</strong> - For reusable component patterns</span>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Don'ts -->
+          <div class="bg-red-50 border border-red-200 rounded p-6">
+            <h3 class="text-lg font-bold text-red-900 mb-4">❌ Don'ts</h3>
+            <ul class="space-y-3 text-sm">
+              <li class="flex gap-3">
+                <span class="text-red-600 font-bold flex-shrink-0">✗</span>
+                <span><strong>Don't use @apply with important!</strong> - Breaks Tailwind's cascade</span>
+              </li>
+              <li class="flex gap-3">
+                <span class="text-red-600 font-bold flex-shrink-0">✗</span>
+                <span><strong>Don't nest theme() calls deeply</strong> - Use single, clear paths</span>
+              </li>
+              <li class="flex gap-3">
+                <span class="text-red-600 font-bold flex-shrink-0">✗</span>
+                <span><strong>Don't forget to close @media blocks</strong> - Syntax errors break CSS</span>
+              </li>
+              <li class="flex gap-3">
+                <span class="text-red-600 font-bold flex-shrink-0">✗</span>
+                <span><strong>Don't abuse @supports</strong> - Use for feature detection, not browser sniffing</span>
+              </li>
+              <li class="flex gap-3">
+                <span class="text-red-600 font-bold flex-shrink-0">✗</span>
+                <span><strong>Don't hardcode values</strong> - Always use theme() when possible</span>
+              </li>
+              <li class="flex gap-3">
+                <span class="text-red-600 font-bold flex-shrink-0">✗</span>
+                <span><strong>Don't override with inline styles</strong> - Use CSS for consistency</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 7: Quick Reference -->
+    <section class="mb-12">
+      <div class="bg-white rounded-lg shadow p-6">
+        <h2 class="text-3xl font-bold text-gray-900 mb-6">Quick Reference Table</h2>
+        
+        <div class="overflow-x-auto">
+          <table class="w-full text-sm border-collapse">
+            <thead>
+              <tr class="bg-gray-100 border-b-2 border-gray-300">
+                <th class="border border-gray-300 px-4 py-2 text-left font-bold text-gray-900">Directive</th>
+                <th class="border border-gray-300 px-4 py-2 text-left font-bold text-gray-900">Purpose</th>
+                <th class="border border-gray-300 px-4 py-2 text-left font-bold text-gray-900">Use Case</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="border-b border-gray-200 hover:bg-gray-50">
+                <td class="border border-gray-300 px-4 py-2 font-mono text-blue-600">@tailwind</td>
+                <td class="border border-gray-300 px-4 py-2">Injects CSS layers</td>
+                <td class="border border-gray-300 px-4 py-2">Entry point in your CSS file</td>
+              </tr>
+              <tr class="border-b border-gray-200 hover:bg-gray-50">
+                <td class="border border-gray-300 px-4 py-2 font-mono text-purple-600">@layer</td>
+                <td class="border border-gray-300 px-4 py-2">Organizes cascade</td>
+                <td class="border border-gray-300 px-4 py-2">Custom components, utilities, overrides</td>
+              </tr>
+              <tr class="border-b border-gray-200 hover:bg-gray-50">
+                <td class="border border-gray-300 px-4 py-2 font-mono text-green-600">@apply</td>
+                <td class="border border-gray-300 px-4 py-2">Applies utilities</td>
+                <td class="border border-gray-300 px-4 py-2">Creating reusable component classes</td>
+              </tr>
+              <tr class="border-b border-gray-200 hover:bg-gray-50">
+                <td class="border border-gray-300 px-4 py-2 font-mono text-orange-600">theme()</td>
+                <td class="border border-gray-300 px-4 py-2">Accesses config</td>
+                <td class="border border-gray-300 px-4 py-2">Using config values in custom CSS</td>
+              </tr>
+              <tr class="border-b border-gray-200 hover:bg-gray-50">
+                <td class="border border-gray-300 px-4 py-2 font-mono text-red-600">@media</td>
+                <td class="border border-gray-300 px-4 py-2">Media queries</td>
+                <td class="border border-gray-300 px-4 py-2">Responsive styles, preference detection</td>
+              </tr>
+              <tr class="border-b border-gray-200 hover:bg-gray-50">
+                <td class="border border-gray-300 px-4 py-2 font-mono text-indigo-600">@keyframes</td>
+                <td class="border border-gray-300 px-4 py-2">Custom animations</td>
+                <td class="border border-gray-300 px-4 py-2">Complex animations beyond utilities</td>
+              </tr>
+              <tr class="border-b border-gray-200 hover:bg-gray-50">
+                <td class="border border-gray-300 px-4 py-2 font-mono text-pink-600">@supports</td>
+                <td class="border border-gray-300 px-4 py-2">Feature detection</td>
+                <td class="border border-gray-300 px-4 py-2">Progressive enhancement</td>
+              </tr>
+              <tr class="hover:bg-gray-50">
+                <td class="border border-gray-300 px-4 py-2 font-mono text-cyan-600">@import</td>
+                <td class="border border-gray-300 px-4 py-2">Load resources</td>
+                <td class="border border-gray-300 px-4 py-2">Fonts, stylesheets</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- Getting Started -->
+    <section class="bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-lg shadow p-8 mb-12">
+      <h2 class="text-3xl font-bold mb-4">Ready to Master Functions & Directives?</h2>
+      <p class="text-blue-100 mb-6">Functions and directives are the power tools of Tailwind CSS. Use them wisely to create flexible, maintainable styles that scale with your application.</p>
+      <div class="grid md:grid-cols-2 gap-4">
+        <div class="bg-white bg-opacity-20 rounded p-4">
+          <p class="font-semibold mb-2">Run Dev Server:</p>
+          <code class="block bg-black bg-opacity-30 px-3 py-2 rounded text-sm">pnpm dev</code>
+        </div>
+        <div class="bg-white bg-opacity-20 rounded p-4">
+          <p class="font-semibold mb-2">Build for Production:</p>
+          <code class="block bg-black bg-opacity-30 px-3 py-2 rounded text-sm">pnpm build</code>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="bg-gray-900 text-gray-400 py-8">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <p class="text-sm">Congratulations! You've explored all 9 core Tailwind CSS concepts. 🎉</p>
+    </div>
+  </footer>
+
+  <style>
+    @keyframes gradient-shift {
+      0% { background-position: 0% center; }
+      50% { background-position: 100% center; }
+      100% { background-position: 0% center; }
+    }
+  </style>
+</body>
+</html>
