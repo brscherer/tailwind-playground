@@ -57,9 +57,11 @@ Deep dive into Tailwind's comprehensive color palette with 21 colors and 10 shad
 - **Dev server**: `http://localhost:5178`
 
 ### 7. **Custom Styles** (`./custom-styles`)
-*Coming soon* - Learn when and how to add custom CSS with Tailwind.
+Learn when and how to add custom CSS alongside Tailwind utilities. Demonstrates `@apply`, `@layer`, custom animations, and plugins.
 
-- **Key concepts**: @apply directive, custom components, plugins
+- **Key concepts**: @apply, @layer, custom CSS, keyframes, plugins
+- **Examples**: Button components, card components, animations, arbitrary values
+- **Dev server**: `http://localhost:5179`
 
 ### 8. **Detecting Classes** (`./detecting-classes`)
 *Coming soon* - Understand how Tailwind finds and purges unused classes.
@@ -150,7 +152,7 @@ tailwind-playground/
 ├── dark-mode/                ✅ Complete
 ├── theme-variables/          ✅ Complete
 ├── colors/                   ✅ Complete
-├── custom-styles/            📋 Planned
+├── custom-styles/            ✅ Complete
 ├── detecting-classes/        📋 Planned
 ├── functions-directives/     📋 Planned
 ├── README.md

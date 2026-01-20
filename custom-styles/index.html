@@ -1,0 +1,470 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tailwind Custom Styles</title>
+    <link rel="stylesheet" href="/src/style.css" />
+  </head>
+  <body class="bg-gray-50">
+    <header class="bg-white border-b border-gray-200 sticky top-0 z-50">
+      <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+        <div class="flex items-center gap-3">
+          <div class="text-3xl">✨</div>
+          <h1 class="text-2xl font-bold text-gray-900">Custom Styles</h1>
+        </div>
+      </nav>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <h1 class="text-4xl lg:text-5xl font-bold text-gray-900 mb-4">
+        Tailwind CSS Custom Styles
+      </h1>
+      <p class="text-lg text-gray-600 mb-12">
+        Learn when and how to add custom CSS alongside Tailwind utilities
+      </p>
+
+      <!-- Overview Section -->
+      <section class="mb-16">
+        <h2 class="text-3xl font-bold text-gray-900 mb-8">When to Use Custom Styles</h2>
+        
+        <div class="bg-white rounded-lg shadow-md p-8 border border-gray-200 mb-8">
+          <p class="text-gray-700 leading-relaxed mb-4">
+            Tailwind's utility-first approach covers 99% of styling needs. However, sometimes you need custom CSS for:
+          </p>
+          <ul class="space-y-2 text-gray-700 ml-4">
+            <li>• Complex animations or transitions</li>
+            <li>• Keyframe-based animations</li>
+            <li>• Advanced pseudo-selectors</li>
+            <li>• Non-standard CSS properties</li>
+            <li>• Component-level encapsulation</li>
+            <li>• Third-party library styles</li>
+          </ul>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div class="bg-green-50 rounded-lg p-6 border border-green-200">
+            <h3 class="text-lg font-semibold text-green-900 mb-3">✅ Use Utilities</h3>
+            <ul class="space-y-2 text-sm text-green-800">
+              <li>• Spacing (padding, margin)</li>
+              <li>• Colors and backgrounds</li>
+              <li>• Typography</li>
+              <li>• Layout (flexbox, grid)</li>
+              <li>• Simple transforms</li>
+            </ul>
+          </div>
+
+          <div class="bg-blue-50 rounded-lg p-6 border border-blue-200">
+            <h3 class="text-lg font-semibold text-blue-900 mb-3">📝 Use Custom CSS</h3>
+            <ul class="space-y-2 text-sm text-blue-800">
+              <li>• Complex animations</li>
+              <li>• Keyframes</li>
+              <li>• Advanced selectors</li>
+              <li>• Special effects</li>
+              <li>• Vendor prefixes</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- @apply Directive Section -->
+      <section class="mb-16">
+        <h2 class="text-3xl font-bold text-gray-900 mb-8">@apply Directive</h2>
+        <p class="text-gray-600 mb-6">Compose utility classes into custom CSS classes</p>
+
+        <div class="space-y-6">
+          <div class="bg-white rounded-lg shadow-md p-6 border border-gray-200">
+            <h3 class="text-lg font-semibold text-gray-900 mb-4">Example 1: Button Component</h3>
+            <div class="bg-gray-900 text-gray-100 rounded p-4 overflow-x-auto mb-4">
+              <pre class="font-mono text-sm"><code>/* style.css */
+@layer components {'{'}
+  .btn-primary {'{'}
+    @apply px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg;
+    @apply hover:bg-blue-700 active:bg-blue-800;
+    @apply transition-colors duration-200;
+  {'}'}
+  
+  .btn-outline {'{'}
+    @apply px-6 py-3 border-2 border-blue-600 text-blue-600;
+    @apply hover:bg-blue-50 transition-colors;
+  {'}'}
+{'}'};</code></pre>
+            </div>
+            <p class="text-gray-600 text-sm mb-4">Then use in HTML:</p>
+            <button class="btn-primary">Primary Button</button>
+          </div>
+
+          <div class="bg-white rounded-lg shadow-md p-6 border border-gray-200">
+            <h3 class="text-lg font-semibold text-gray-900 mb-4">Example 2: Card Component</h3>
+            <div class="bg-gray-900 text-gray-100 rounded p-4 overflow-x-auto mb-4">
+              <pre class="font-mono text-sm"><code>/* style.css */
+@layer components {'{'}
+  .card {'{'}
+    @apply bg-white rounded-lg shadow-md p-6;
+    @apply border border-gray-200;
+  {'}'}
+  
+  .card-title {'{'}
+    @apply text-2xl font-bold text-gray-900 mb-2;
+  {'}'}
+  
+  .card-text {'{'}
+    @apply text-gray-600 leading-relaxed;
+  {'}'}
+{'}'};</code></pre>
+            </div>
+            <div class="card">
+              <h3 class="card-title">Card Title</h3>
+              <p class="card-text">This card is built using @apply to compose utilities into reusable classes.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- @layer Directive Section -->
+      <section class="mb-16">
+        <h2 class="text-3xl font-bold text-gray-900 mb-8">@layer Directive</h2>
+        <p class="text-gray-600 mb-6">Organize custom styles into Tailwind's cascade layers</p>
+
+        <div class="bg-white rounded-lg shadow-md p-6 border border-gray-200 mb-6">
+          <h3 class="text-lg font-semibold text-gray-900 mb-4">Understanding Layers</h3>
+          <div class="space-y-3">
+            <div class="flex gap-4">
+              <div class="w-32 bg-blue-100 rounded p-3 text-center font-semibold text-blue-900">Base</div>
+              <p class="text-gray-700 flex items-center">Element defaults (html, body, etc.)</p>
+            </div>
+            <div class="flex gap-4">
+              <div class="w-32 bg-purple-100 rounded p-3 text-center font-semibold text-purple-900">Components</div>
+              <p class="text-gray-700 flex items-center">Reusable component classes</p>
+            </div>
+            <div class="flex gap-4">
+              <div class="w-32 bg-green-100 rounded p-3 text-center font-semibold text-green-900">Utilities</div>
+              <p class="text-gray-700 flex items-center">Single-purpose utility classes (highest priority)</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-gray-900 text-gray-100 rounded p-4 overflow-x-auto">
+          <pre class="font-mono text-sm"><code>/* style.css */
+@tailwind base;
+
+/* Add custom base styles */
+@layer base {'{'}
+  h1 {'{'}
+    @apply text-4xl font-bold mb-4;
+  {'}'}
+  
+  h2 {'{'}
+    @apply text-2xl font-semibold mb-3;
+  {'}'}
+{'}'}
+
+@tailwind components;
+
+/* Add custom components */
+@layer components {'{'}
+  .btn {'{'}
+    @apply px-4 py-2 rounded font-semibold transition-colors;
+  {'}'}
+{'}'}
+
+@tailwind utilities;
+
+/* Add custom utilities */
+@layer utilities {'{'}
+  .text-shadow {'{'}
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+  {'}'}
+{'}'};</code></pre>
+        </div>
+      </section>
+
+      <!-- Custom Animations Section -->
+      <section class="mb-16">
+        <h2 class="text-3xl font-bold text-gray-900 mb-8">Custom Animations with CSS</h2>
+        <p class="text-gray-600 mb-6">Define complex animations beyond Tailwind's built-in options</p>
+
+        <div class="space-y-6">
+          <div class="bg-white rounded-lg shadow-md p-6 border border-gray-200">
+            <h3 class="text-lg font-semibold text-gray-900 mb-4">Bounce Animation</h3>
+            <div class="flex items-center gap-8">
+              <div class="flex gap-2">
+                <div class="ball"></div>
+                <div class="ball" style="animation-delay: 0.1s"></div>
+                <div class="ball" style="animation-delay: 0.2s"></div>
+              </div>
+              <p class="text-gray-600">Custom bounce animation</p>
+            </div>
+          </div>
+
+          <div class="bg-white rounded-lg shadow-md p-6 border border-gray-200">
+            <h3 class="text-lg font-semibold text-gray-900 mb-4">Gradient Shift Animation</h3>
+            <div class="gradient-shift rounded-lg p-8 text-white text-center font-bold">
+              Animated Gradient
+            </div>
+          </div>
+
+          <div class="bg-white rounded-lg shadow-md p-6 border border-gray-200">
+            <h3 class="text-lg font-semibold text-gray-900 mb-4">Floating Animation</h3>
+            <div class="floating-box bg-blue-500 text-white font-bold rounded-lg shadow-lg p-6 w-32 text-center">
+              Float
+            </div>
+          </div>
+
+          <div class="bg-gray-900 text-gray-100 rounded p-4 overflow-x-auto">
+            <pre class="font-mono text-sm"><code>/* style.css */
+@keyframes bounce-custom {'{'}
+  0%, 100% {'{'}
+    transform: translateY(0);
+  {'}'}
+  50% {'{'}
+    transform: translateY(-20px);
+  {'}'}
+{'}'}
+
+@keyframes gradient-shift {'{'}
+  0% {'{'}
+    background-position: 0% 50%;
+  {'}'}
+  50% {'{'}
+    background-position: 100% 50%;
+  {'}'}
+  100% {'{'}
+    background-position: 0% 50%;
+  {'}'}
+{'}'}
+
+@keyframes float {'{'}
+  0%, 100% {'{'}
+    transform: translateY(0px);
+  {'}'}
+  50% {'{'}
+    transform: translateY(-20px);
+  {'}'}
+{'}'}
+
+.ball {'{'}
+  @apply w-4 h-4 bg-blue-600 rounded-full;
+  animation: bounce-custom 1.2s infinite ease-in-out;
+{'}'}
+
+.gradient-shift {'{'}
+  background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+  background-size: 400% 400%;
+  animation: gradient-shift 6s ease infinite;
+{'}'}
+
+.floating-box {'{'}
+  animation: float 3s ease-in-out infinite;
+{'}'}
+}</code></pre>
+          </div>
+        </div>
+      </section>
+
+      <!-- Arbitrary Values Section -->
+      <section class="mb-16">
+        <h2 class="text-3xl font-bold text-gray-900 mb-8">Arbitrary Values</h2>
+        <p class="text-gray-600 mb-6">Use square bracket notation for one-off custom values</p>
+
+        <div class="space-y-6">
+          <div class="bg-white rounded-lg shadow-md p-6 border border-gray-200">
+            <h3 class="text-lg font-semibold text-gray-900 mb-4">Custom Colors</h3>
+            <div class="flex gap-3 mb-4">
+              <div class="w-16 h-16 bg-[#1e3a5f] rounded border border-gray-300"></div>
+              <div class="flex items-center text-gray-700">
+                <code class="bg-gray-100 px-2 py-1 rounded text-sm font-mono">bg-[#1e3a5f]</code>
+              </div>
+            </div>
+            <div class="bg-gray-900 text-gray-100 rounded p-4 overflow-x-auto">
+              <pre class="font-mono text-sm"><code>&lt;div class="bg-[#1e3a5f]"&gt;Custom color&lt;/div&gt;</code></pre>
+            </div>
+          </div>
+
+          <div class="bg-white rounded-lg shadow-md p-6 border border-gray-200">
+            <h3 class="text-lg font-semibold text-gray-900 mb-4">Custom Sizing</h3>
+            <div class="space-y-3">
+              <div class="flex items-center gap-4">
+                <div class="w-[432px] h-[200px] bg-blue-200 rounded border-2 border-blue-400 flex items-center justify-center">
+                  <span class="text-gray-700 font-semibold">432px × 200px</span>
+                </div>
+              </div>
+              <div class="bg-gray-900 text-gray-100 rounded p-4 overflow-x-auto">
+                <pre class="font-mono text-sm"><code>&lt;div class="w-[432px] h-[200px]"&gt;...&lt;/div&gt;</code></pre>
+              </div>
+            </div>
+          </div>
+
+          <div class="bg-white rounded-lg shadow-md p-6 border border-gray-200">
+            <h3 class="text-lg font-semibold text-gray-900 mb-4">Custom Delays & Durations</h3>
+            <div class="space-y-3">
+              <div class="flex items-center gap-4">
+                <div class="animate-pulse w-12 h-12 bg-green-500 rounded"></div>
+                <code class="bg-gray-100 px-2 py-1 rounded text-sm font-mono">animate-[pulse_2s_infinite]</code>
+              </div>
+              <div class="bg-gray-900 text-gray-100 rounded p-4 overflow-x-auto">
+                <pre class="font-mono text-sm"><code>&lt;div class="animate-[pulse_2s_infinite]"&gt;...&lt;/div&gt;</code></pre>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Plugins Section -->
+      <section class="mb-16">
+        <h2 class="text-3xl font-bold text-gray-900 mb-8">Using Tailwind Plugins</h2>
+        <p class="text-gray-600 mb-6">Extend Tailwind with custom utilities via plugins</p>
+
+        <div class="bg-white rounded-lg shadow-md p-6 border border-gray-200">
+          <h3 class="text-lg font-semibold text-gray-900 mb-4">Creating a Plugin</h3>
+          <div class="bg-gray-900 text-gray-100 rounded p-4 overflow-x-auto">
+            <pre class="font-mono text-sm"><code>// tailwind.config.js
+const plugin = require('tailwindcss/plugin')
+
+export default {'{'}
+  plugins: [
+    plugin(function({'{'}addUtilities{'}'},) {'{'}
+      addUtilities({'{'}
+        '.skew-10deg': {'{'}
+          transform: 'skewY(-10deg)',
+        {'}'},
+        '.skew-20deg': {'{'}
+          transform: 'skewY(-20deg)',
+        {'}'},
+      {'}'})
+    {'}'},
+    )
+  ]
+{'}'};</code></pre>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
+          <div class="bg-indigo-50 rounded-lg p-6 border border-indigo-200">
+            <h3 class="text-lg font-semibold text-indigo-900 mb-3">Popular Plugins</h3>
+            <ul class="space-y-2 text-sm text-indigo-800">
+              <li>• @tailwindcss/forms</li>
+              <li>• @tailwindcss/typography</li>
+              <li>• @tailwindcss/line-clamp</li>
+              <li>• @tailwindcss/aspect-ratio</li>
+              <li>• Custom community plugins</li>
+            </ul>
+          </div>
+
+          <div class="bg-orange-50 rounded-lg p-6 border border-orange-200">
+            <h3 class="text-lg font-semibold text-orange-900 mb-3">Plugin Features</h3>
+            <ul class="space-y-2 text-sm text-orange-800">
+              <li>• Add custom utilities</li>
+              <li>• Extend theme values</li>
+              <li>• Modify generated CSS</li>
+              <li>• Integrate third-party libs</li>
+              <li>• Add responsive variants</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- Best Practices Section -->
+      <section class="mb-16">
+        <h2 class="text-3xl font-bold text-gray-900 mb-8">Best Practices</h2>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div class="bg-green-50 rounded-lg p-6 border border-green-200">
+            <h3 class="text-lg font-semibold text-green-900 mb-4">✅ Do</h3>
+            <ul class="space-y-2 text-sm text-green-800">
+              <li>• Use @apply for component-level styles</li>
+              <li>• Keep custom CSS minimal</li>
+              <li>• Use @layer for organization</li>
+              <li>• Document custom utilities</li>
+              <li>• Consider using plugins first</li>
+              <li>• Use arbitrary values when needed</li>
+            </ul>
+          </div>
+
+          <div class="bg-red-50 rounded-lg p-6 border border-red-200">
+            <h3 class="text-lg font-semibold text-red-900 mb-4">❌ Don't</h3>
+            <ul class="space-y-2 text-sm text-red-800">
+              <li>• Override Tailwind utilities needlessly</li>
+              <li>• Write extensive custom CSS</li>
+              <li>• Mix utility and semantic CSS</li>
+              <li>• Use !important excessively</li>
+              <li>• Duplicate Tailwind functionality</li>
+              <li>• Ignore Tailwind's structure</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- Code Examples Section -->
+      <section class="mb-16">
+        <h2 class="text-3xl font-bold text-gray-900 mb-8">Complete Example</h2>
+
+        <div class="bg-white rounded-lg shadow-md p-6 border border-gray-200">
+          <h3 class="text-lg font-semibold text-gray-900 mb-4">Hero Component with Custom Styles</h3>
+          <div class="bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg overflow-hidden text-white">
+            <div class="px-6 sm:px-8 lg:px-12 py-12 sm:py-16 lg:py-20">
+              <h2 class="text-3xl sm:text-4xl font-bold mb-4">Custom Component</h2>
+              <p class="text-lg text-blue-100 mb-8">Built with @apply and custom animations</p>
+              <button class="btn-primary">Get Started</button>
+            </div>
+          </div>
+
+          <div class="mt-6 bg-gray-900 text-gray-100 rounded p-4 overflow-x-auto">
+            <pre class="font-mono text-sm"><code>/* style.css */
+@layer components {'{'}
+  .hero {'{'}
+    @apply bg-gradient-to-r from-blue-600 to-purple-600;
+    @apply text-white rounded-lg overflow-hidden;
+  {'}'}
+  
+  .hero-content {'{'}
+    @apply px-6 sm:px-8 lg:px-12 py-12 sm:py-16 lg:py-20;
+  {'}'}
+  
+  .hero h2 {'{'}
+    @apply text-3xl sm:text-4xl font-bold mb-4;
+  {'}'}
+  
+  .hero p {'{'}
+    @apply text-lg text-blue-100 mb-8;
+  {'}'}
+{'}'};</code></pre>
+          </div>
+        </div>
+      </section>
+
+      <!-- When to Add Custom Styles -->
+      <section class="mb-16">
+        <h2 class="text-3xl font-bold text-gray-900 mb-8">Decision Tree: Utilities vs Custom CSS</h2>
+
+        <div class="space-y-4">
+          <div class="bg-blue-50 rounded-lg p-6 border border-blue-200">
+            <p class="font-semibold text-blue-900 mb-3">Can I do this with Tailwind utilities?</p>
+            <p class="text-blue-800 text-sm">→ <strong>YES:</strong> Use utilities (90% of the time)</p>
+            <p class="text-blue-800 text-sm">→ <strong>NO:</strong> Consider custom CSS with @apply or @layer</p>
+          </div>
+
+          <div class="bg-green-50 rounded-lg p-6 border border-green-200">
+            <p class="font-semibold text-green-900 mb-3">Is it a reusable component?</p>
+            <p class="text-green-800 text-sm">→ <strong>YES:</strong> Use @apply to create a component class</p>
+            <p class="text-green-800 text-sm">→ <strong>NO:</strong> Use arbitrary values or inline styles</p>
+          </div>
+
+          <div class="bg-purple-50 rounded-lg p-6 border border-purple-200">
+            <p class="font-semibold text-purple-900 mb-3">Is it complex CSS?</p>
+            <p class="text-purple-800 text-sm">→ <strong>YES:</strong> Write custom CSS with regular syntax</p>
+            <p class="text-purple-800 text-sm">→ <strong>NO:</strong> Use @apply to keep it organized</p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-100 border-t border-gray-200 py-12 mt-16">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <p class="text-gray-600 mb-2">Custom styles extend Tailwind's power for advanced use cases</p>
+        <p class="text-sm text-gray-500">&copy; 2026 Tailwind Custom Styles. All rights reserved.</p>
+      </div>
+    </footer>
+  </body>
+</html>

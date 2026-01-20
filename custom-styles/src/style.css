@@ -1,0 +1,79 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom Animations */
+@keyframes bounce-custom {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+}
+
+@keyframes gradient-shift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+}
+
+/* Ball Animation */
+.ball {
+  @apply w-4 h-4 bg-blue-600 rounded-full;
+  animation: bounce-custom 1.2s infinite ease-in-out;
+}
+
+/* Gradient Shift */
+.gradient-shift {
+  background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+  background-size: 400% 400%;
+  animation: gradient-shift 6s ease infinite;
+}
+
+/* Floating Box */
+.floating-box {
+  animation: float 3s ease-in-out infinite;
+}
+
+/* Component Classes with @apply */
+@layer components {
+  .btn-primary {
+    @apply px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg;
+    @apply hover:bg-blue-700 active:bg-blue-800;
+    @apply transition-colors duration-200;
+  }
+
+  .btn-outline {
+    @apply px-6 py-3 border-2 border-blue-600 text-blue-600;
+    @apply hover:bg-blue-50 transition-colors;
+  }
+
+  .card {
+    @apply bg-white rounded-lg shadow-md p-6;
+    @apply border border-gray-200;
+  }
+
+  .card-title {
+    @apply text-2xl font-bold text-gray-900 mb-2;
+  }
+
+  .card-text {
+    @apply text-gray-600 leading-relaxed;
+  }
+}
