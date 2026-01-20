@@ -50,9 +50,11 @@ Customize and extend Tailwind's theme system to match your brand. Learn how to c
 - **Dev server**: `http://localhost:5177`
 
 ### 6. **Colors** (`./colors`)
-*Coming soon* - Deep dive into Tailwind's color palette and customization.
+Deep dive into Tailwind's comprehensive color palette with 21 colors and 10 shades each. Learn semantic color usage, accessibility, and opacity modifiers.
 
-- **Key concepts**: Color palette, opacity modifiers, custom colors
+- **Key concepts**: Color palette, semantic colors, accessibility, opacity
+- **Examples**: All color shades, usage patterns, contrast ratios, dark mode
+- **Dev server**: `http://localhost:5178`
 
 ### 7. **Custom Styles** (`./custom-styles`)
 *Coming soon* - Learn when and how to add custom CSS with Tailwind.
@@ -147,7 +149,7 @@ tailwind-playground/
 ├── responsive-design/        ✅ Complete
 ├── dark-mode/                ✅ Complete
 ├── theme-variables/          ✅ Complete
-├── colors/                   📋 Planned
+├── colors/                   ✅ Complete
 ├── custom-styles/            📋 Planned
 ├── detecting-classes/        📋 Planned
 ├── functions-directives/     📋 Planned
