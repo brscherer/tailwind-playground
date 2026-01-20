@@ -64,9 +64,11 @@ Learn when and how to add custom CSS alongside Tailwind utilities. Demonstrates 
 - **Dev server**: `http://localhost:5179`
 
 ### 8. **Detecting Classes** (`./detecting-classes`)
-*Coming soon* - Understand how Tailwind finds and purges unused classes.
+Understand how Tailwind scans source files for class names and purges unused CSS. Learn about content configuration, safelist patterns, and optimizing bundle size.
 
-- **Key concepts**: Content configuration, dynamic class names, PurgeCSS
+- **Key concepts**: Content configuration, dynamic class names, PurgeCSS, safelist, blocklist
+- **Examples**: Static vs dynamic class detection, content paths, regex patterns, troubleshooting
+- **Dev server**: `http://localhost:5180`
 
 ### 9. **Functions & Directives** (`./functions-directives`)
 *Coming soon* - Use Tailwind's CSS functions and directives for advanced styling.
@@ -153,7 +155,7 @@ tailwind-playground/
 ├── theme-variables/          ✅ Complete
 ├── colors/                   ✅ Complete
 ├── custom-styles/            ✅ Complete
-├── detecting-classes/        📋 Planned
+├── detecting-classes/        ✅ Complete
 ├── functions-directives/     📋 Planned
 ├── README.md
 └── .git/

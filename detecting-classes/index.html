@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Detecting Classes in Tailwind CSS</title>
+  <link rel="stylesheet" href="./src/style.css">
+</head>
+<body class="bg-gray-50">
+  <!-- Navigation Header -->
+  <nav class="sticky top-0 bg-white border-b border-gray-200 shadow-sm z-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between items-center h-16">
+        <h1 class="text-2xl font-bold text-gray-900">Detecting Classes</h1>
+        <p class="text-sm text-gray-600">How Tailwind finds & purges unused classes</p>
+      </div>
+    </div>
+  </nav>
+
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <!-- Section 1: How Class Detection Works -->
+    <section class="mb-12">
+      <div class="bg-white rounded-lg shadow p-6 mb-6">
+        <h2 class="text-3xl font-bold text-gray-900 mb-4">How Class Detection Works</h2>
+        <div class="grid md:grid-cols-2 gap-6">
+          <div class="bg-blue-50 border border-blue-200 rounded p-4">
+            <h3 class="font-semibold text-blue-900 mb-2">✅ Static Classes (Detected)</h3>
+            <p class="text-sm text-blue-800 mb-3">These are found and included in the final CSS:</p>
+            <code class="block bg-white p-2 rounded text-xs border border-blue-200 mb-2">&lt;div class="bg-blue-600 text-white"&gt;</code>
+            <code class="block bg-white p-2 rounded text-xs border border-blue-200 mb-2">&lt;p class="mb-4 font-bold"&gt;</code>
+            <code class="block bg-white p-2 rounded text-xs border border-blue-200">&lt;button class="px-4 py-2 rounded"&gt;</code>
+          </div>
+          <div class="bg-red-50 border border-red-200 rounded p-4">
+            <h3 class="font-semibold text-red-900 mb-2">❌ Dynamic Classes (Not Detected)</h3>
+            <p class="text-sm text-red-800 mb-3">These are typically NOT found and will be purged:</p>
+            <code class="block bg-white p-2 rounded text-xs border border-red-200 mb-2">&lt;div class={'bg-' + color}&gt;</code>
+            <code class="block bg-white p-2 rounded text-xs border border-red-200 mb-2">const cls = `text-${size}`;</code>
+            <code class="block bg-white p-2 rounded text-xs border border-red-200">&lt;div :class="`p-${value}`"&gt;</code>
+          </div>
+        </div>
+      </div>
+
+      <div class="bg-green-50 border-l-4 border-green-600 p-6 rounded">
+        <h3 class="font-semibold text-green-900 mb-2">💡 Key Insight</h3>
+        <p class="text-green-800">Tailwind uses regex patterns to scan your source files for class names. It looks for strings that match Tailwind's class naming patterns. If a class isn't found in your source code, it won't be included in the final CSS bundle.</p>
+      </div>
+    </section>
+
+    <!-- Section 2: Content Configuration -->
+    <section class="mb-12">
+      <div class="bg-white rounded-lg shadow p-6 mb-6">
+        <h2 class="text-3xl font-bold text-gray-900 mb-4">Content Configuration Patterns</h2>
+        
+        <div class="space-y-4">
+          <!-- Pattern 1: Basic Files -->
+          <div class="border border-gray-200 rounded p-4">
+            <div class="flex items-start gap-4">
+              <div class="flex-shrink-0">
+                <div class="flex items-center justify-center h-8 w-8 rounded-md bg-indigo-600 text-white font-bold">1</div>
+              </div>
+              <div class="flex-1">
+                <h3 class="font-semibold text-gray-900 mb-2">Basic File Patterns</h3>
+                <code class="block bg-gray-100 p-3 rounded text-sm mb-2 border border-gray-300">
+content: [<br/>
+&nbsp;&nbsp;"./index.html",<br/>
+&nbsp;&nbsp;"./src/**/*.{js,jsx,ts,tsx}",<br/>
+]
+                </code>
+                <p class="text-sm text-gray-700">Scans HTML and JavaScript files for class names. The most common pattern.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Pattern 2: Vue/Svelte -->
+          <div class="border border-gray-200 rounded p-4">
+            <div class="flex items-start gap-4">
+              <div class="flex-shrink-0">
+                <div class="flex items-center justify-center h-8 w-8 rounded-md bg-purple-600 text-white font-bold">2</div>
+              </div>
+              <div class="flex-1">
+                <h3 class="font-semibold text-gray-900 mb-2">Framework Template Files</h3>
+                <code class="block bg-gray-100 p-3 rounded text-sm mb-2 border border-gray-300">
+content: [<br/>
+&nbsp;&nbsp;"./src/**/*.vue",&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// Vue<br/>
+&nbsp;&nbsp;"./src/**/*.svelte",&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// Svelte<br/>
+&nbsp;&nbsp;"./app/**/*.{html,jsx,tsx}",&nbsp;// React<br/>
+]
+                </code>
+                <p class="text-sm text-gray-700">Include template files for your framework. Tailwind scans these for class names.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Pattern 3: Dynamic Class Names (Safelist) -->
+          <div class="border border-gray-200 rounded p-4">
+            <div class="flex items-start gap-4">
+              <div class="flex-shrink-0">
+                <div class="flex items-center justify-center h-8 w-8 rounded-md bg-orange-600 text-white font-bold">3</div>
+              </div>
+              <div class="flex-1">
+                <h3 class="font-semibold text-gray-900 mb-2">Safelist (Force Inclusion)</h3>
+                <code class="block bg-gray-100 p-3 rounded text-sm mb-2 border border-gray-300">
+safelist: [<br/>
+&nbsp;&nbsp;'bg-red-500',<br/>
+&nbsp;&nbsp;'text-white',<br/>
+&nbsp;&nbsp;'p-4',<br/>
+]
+                </code>
+                <p class="text-sm text-gray-700">Manually list classes that won't be detected by content scanning. Use for dynamically generated classes.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Pattern 4: Pattern-Based Safelist -->
+          <div class="border border-gray-200 rounded p-4">
+            <div class="flex items-start gap-4">
+              <div class="flex-shrink-0">
+                <div class="flex items-center justify-center h-8 w-8 rounded-md bg-pink-600 text-white font-bold">4</div>
+              </div>
+              <div class="flex-1">
+                <h3 class="font-semibold text-gray-900 mb-2">Regex Patterns in Safelist</h3>
+                <code class="block bg-gray-100 p-3 rounded text-sm mb-2 border border-gray-300">
+safelist: [<br/>
+&nbsp;&nbsp;{&nbsp;pattern: /bg-(red|green|blue)-(500|600)/ },<br/>
+&nbsp;&nbsp;{&nbsp;pattern: /text-/&nbsp;},<br/>
+&nbsp;&nbsp;{&nbsp;pattern: /p-[0-9]/ },<br/>
+]
+                </code>
+                <p class="text-sm text-gray-700">Use regex patterns to match entire families of classes. More flexible than listing individual classes.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Pattern 5: Blocklist (Exclusion) -->
+          <div class="border border-gray-200 rounded p-4">
+            <div class="flex items-start gap-4">
+              <div class="flex-shrink-0">
+                <div class="flex items-center justify-center h-8 w-8 rounded-md bg-gray-600 text-white font-bold">5</div>
+              </div>
+              <div class="flex-1">
+                <h3 class="font-semibold text-gray-900 mb-2">Blocklist (Exclude Classes)</h3>
+                <code class="block bg-gray-100 p-3 rounded text-sm mb-2 border border-gray-300">
+blocklist: [<br/>
+&nbsp;&nbsp;'container',&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// Problematic<br/>
+&nbsp;&nbsp;'px-0.5',&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// Rarely used<br/>
+]
+                </code>
+                <p class="text-sm text-gray-700">Prevent certain classes from being generated even if found. Reduces bundle size.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 3: Live Examples -->
+    <section class="mb-12">
+      <div class="bg-white rounded-lg shadow p-6 mb-6">
+        <h2 class="text-3xl font-bold text-gray-900 mb-6">Live Detection Examples</h2>
+        
+        <!-- Example 1: Static Classes -->
+        <div class="mb-8 border border-gray-200 rounded p-6 bg-gray-50">
+          <h3 class="text-xl font-semibold text-gray-900 mb-4">✅ Example 1: Static Classes (DETECTED)</h3>
+          <p class="text-gray-700 mb-4">These classes are hardcoded in the HTML and WILL be included:</p>
+          
+          <div class="grid md:grid-cols-3 gap-4 mb-4">
+            <div class="bg-blue-500 text-white p-4 rounded shadow">
+              <p class="font-bold">Static Class</p>
+              <p class="text-sm">bg-blue-500 text-white</p>
+            </div>
+            <div class="bg-green-500 text-white p-4 rounded shadow">
+              <p class="font-bold">Static Class</p>
+              <p class="text-sm">bg-green-500 text-white</p>
+            </div>
+            <div class="bg-purple-500 text-white p-4 rounded shadow">
+              <p class="font-bold">Static Class</p>
+              <p class="text-sm">bg-purple-500 text-white</p>
+            </div>
+          </div>
+          
+          <code class="block bg-white p-3 rounded border border-gray-300 text-xs text-gray-800">
+&lt;div class="bg-blue-500 text-white p-4 rounded shadow"&gt;...&lt;/div&gt;
+          </code>
+        </div>
+
+        <!-- Example 2: Template Strings (Need Safelist) -->
+        <div class="mb-8 border border-orange-200 rounded p-6 bg-orange-50">
+          <h3 class="text-xl font-semibold text-gray-900 mb-4">⚠️ Example 2: Template Strings (RISKY)</h3>
+          <p class="text-gray-700 mb-4">These might NOT be detected. You should use safelist:</p>
+          
+          <div class="grid md:grid-cols-2 gap-4 mb-4">
+            <div id="dynamic-box" class="bg-red-500 text-white p-4 rounded shadow">
+              <p class="font-bold">Dynamic Color</p>
+              <p class="text-sm" id="dynamic-text">Generated with JS</p>
+            </div>
+            <div class="bg-indigo-100 p-4 rounded border border-indigo-300">
+              <p class="font-mono text-xs text-gray-800 mb-2">
+                Bad (might not work):
+              </p>
+              <code class="block text-xs bg-white p-2 rounded border border-indigo-200 mb-2">
+const colors = ['red', 'blue'];<br/>
+className = `bg-${colors[0]}-500`;
+              </code>
+              <p class="font-mono text-xs text-gray-800 mb-2">
+                Good (use safelist):
+              </p>
+              <code class="block text-xs bg-white p-2 rounded border border-indigo-200">
+safelist: [<br/>
+&nbsp;&nbsp;'bg-red-500',<br/>
+&nbsp;&nbsp;'bg-blue-500'<br/>
+]
+              </code>
+            </div>
+          </div>
+        </div>
+
+        <!-- Example 3: Arbitrary Values -->
+        <div class="mb-8 border border-green-200 rounded p-6 bg-green-50">
+          <h3 class="text-xl font-semibold text-gray-900 mb-4">✅ Example 3: Arbitrary Values (DETECTED)</h3>
+          <p class="text-gray-700 mb-4">Arbitrary values with brackets ARE detected:</p>
+          
+          <div class="grid md:grid-cols-3 gap-4 mb-4">
+            <div class="p-[24px] bg-gradient-to-r from-cyan-400 to-blue-600 text-white rounded font-bold text-center">
+              Custom p-[24px]
+            </div>
+            <div class="w-[200px] h-[150px] bg-yellow-300 rounded shadow flex items-center justify-center">
+              <span class="text-sm font-semibold">w-[200px] h-[150px]</span>
+            </div>
+            <div class="text-[32px] text-purple-600 font-bold">
+              text-[32px]
+            </div>
+          </div>
+          
+          <code class="block bg-white p-3 rounded border border-gray-300 text-xs text-gray-800">
+&lt;div class="p-[24px] bg-gradient-to-r from-cyan-400 to-blue-600"&gt;...&lt;/div&gt;
+          </code>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 4: Best Practices -->
+    <section class="mb-12">
+      <div class="bg-white rounded-lg shadow p-6 mb-6">
+        <h2 class="text-3xl font-bold text-gray-900 mb-6">Best Practices</h2>
+        
+        <div class="grid md:grid-cols-2 gap-6">
+          <!-- Do's -->
+          <div class="bg-green-50 border border-green-200 rounded p-6">
+            <h3 class="text-lg font-bold text-green-900 mb-4">✅ Do's</h3>
+            <ul class="space-y-3 text-sm">
+              <li class="flex gap-3">
+                <span class="text-green-600 font-bold flex-shrink-0">✓</span>
+                <span><strong>Use static class names</strong> - Hardcode classes when possible for full content scanning</span>
+              </li>
+              <li class="flex gap-3">
+                <span class="text-green-600 font-bold flex-shrink-0">✓</span>
+                <span><strong>Configure content paths</strong> - Tell Tailwind where to find classes in your project</span>
+              </li>
+              <li class="flex gap-3">
+                <span class="text-green-600 font-bold flex-shrink-0">✓</span>
+                <span><strong>Use safelist for dynamic classes</strong> - List dynamically generated classes explicitly</span>
+              </li>
+              <li class="flex gap-3">
+                <span class="text-green-600 font-bold flex-shrink-0">✓</span>
+                <span><strong>Test production builds</strong> - Verify classes aren't being purged unexpectedly</span>
+              </li>
+              <li class="flex gap-3">
+                <span class="text-green-600 font-bold flex-shrink-0">✓</span>
+                <span><strong>Use arbitrary values</strong> - These are detected and don't require safelist</span>
+              </li>
+              <li class="flex gap-3">
+                <span class="text-green-600 font-bold flex-shrink-0">✓</span>
+                <span><strong>Keep class names whole</strong> - Never split class names with variables</span>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Don'ts -->
+          <div class="bg-red-50 border border-red-200 rounded p-6">
+            <h3 class="text-lg font-bold text-red-900 mb-4">❌ Don'ts</h3>
+            <ul class="space-y-3 text-sm">
+              <li class="flex gap-3">
+                <span class="text-red-600 font-bold flex-shrink-0">✗</span>
+                <span><strong>Don't concatenate class strings</strong> - <code class="bg-white px-1 rounded">className = 'bg-' + color</code> won't be detected</span>
+              </li>
+              <li class="flex gap-3">
+                <span class="text-red-600 font-bold flex-shrink-0">✗</span>
+                <span><strong>Don't use ternary for partial classes</strong> - <code class="bg-white px-1 rounded">{isBig ? 'p-' : ''}</code> problematic</span>
+              </li>
+              <li class="flex gap-3">
+                <span class="text-red-600 font-bold flex-shrink-0">✗</span>
+                <span><strong>Don't forget to add content paths</strong> - Empty content array = no classes detected</span>
+              </li>
+              <li class="flex gap-3">
+                <span class="text-red-600 font-bold flex-shrink-0">✗</span>
+                <span><strong>Don't ignore bundle warnings</strong> - If a class doesn't work, check detection</span>
+              </li>
+              <li class="flex gap-3">
+                <span class="text-red-600 font-bold flex-shrink-0">✗</span>
+                <span><strong>Don't over-use safelist</strong> - It defeats the purpose of purging unused CSS</span>
+              </li>
+              <li class="flex gap-3">
+                <span class="text-red-600 font-bold flex-shrink-0">✗</span>
+                <span><strong>Don't assume classes from comments</strong> - Tailwind won't detect them</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 5: Troubleshooting -->
+    <section class="mb-12">
+      <div class="bg-white rounded-lg shadow p-6 mb-6">
+        <h2 class="text-3xl font-bold text-gray-900 mb-6">Troubleshooting: Class Not Working?</h2>
+        
+        <div class="space-y-4">
+          <div class="border-l-4 border-yellow-500 bg-yellow-50 p-4 rounded">
+            <h3 class="font-bold text-yellow-900 mb-2">Problem: "My class doesn't appear on page"</h3>
+            <p class="text-yellow-800 mb-3"><strong>Likely cause:</strong> Class was purged because it wasn't detected.</p>
+            <div class="bg-white p-3 rounded border border-yellow-200 text-sm">
+              <p class="font-semibold mb-2">Solutions:</p>
+              <ul class="list-disc list-inside space-y-1 text-yellow-900">
+                <li>Check that your file is included in the <code class="bg-yellow-100 px-1 rounded">content</code> array</li>
+                <li>Verify the class name is spelled correctly and matches Tailwind's format</li>
+                <li>If dynamically generated, add to <code class="bg-yellow-100 px-1 rounded">safelist</code></li>
+                <li>Run build in dev mode to see if class appears</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="border-l-4 border-orange-500 bg-orange-50 p-4 rounded">
+            <h3 class="font-bold text-orange-900 mb-2">Problem: "My build is huge (lots of unused CSS)"</h3>
+            <p class="text-orange-800 mb-3"><strong>Likely cause:</strong> Content paths are too broad or safelist is overstuffed.</p>
+            <div class="bg-white p-3 rounded border border-orange-200 text-sm">
+              <p class="font-semibold mb-2">Solutions:</p>
+              <ul class="list-disc list-inside space-y-1 text-orange-900">
+                <li>Be specific with content paths - don't include unnecessary directories</li>
+                <li>Review safelist and only include truly dynamic classes</li>
+                <li>Use regex patterns in safelist instead of listing every variation</li>
+                <li>Run <code class="bg-orange-100 px-1 rounded">pnpm build</code> and check CSS file size</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="border-l-4 border-purple-500 bg-purple-50 p-4 rounded">
+            <h3 class="font-bold text-purple-900 mb-2">Problem: "Sometimes the class works, sometimes it doesn't"</h3>
+            <p class="text-purple-800 mb-3"><strong>Likely cause:</strong> Class is partially dynamic or depends on runtime conditions.</p>
+            <div class="bg-white p-3 rounded border border-purple-200 text-sm">
+              <p class="font-semibold mb-2">Solutions:</p>
+              <ul class="list-disc list-inside space-y-1 text-purple-900">
+                <li>Make sure the complete class name appears in your source files</li>
+                <li>Don't split class names across variables/conditions</li>
+                <li>Use safelist with regex patterns to cover all possible values</li>
+                <li>Consider using inline styles for truly dynamic values</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 6: Advanced Configuration -->
+    <section class="mb-12">
+      <div class="bg-white rounded-lg shadow p-6 mb-6">
+        <h2 class="text-3xl font-bold text-gray-900 mb-6">Advanced Configuration Example</h2>
+        
+        <div class="bg-gray-900 rounded p-6 overflow-x-auto">
+          <pre class="text-gray-100 text-sm font-mono"><code>// tailwind.config.js - Comprehensive example
+export default {
+  content: [
+    "./index.html",
+    "./src/**/*.{js,ts,jsx,tsx,vue}",
+    "./components/**/*.{js,jsx,tsx}",
+    "./pages/**/*.{js,jsx,tsx}",
+  ],
+  safelist: [
+    // Explicitly included classes
+    'h-px',
+    'w-px',
+    // Pattern-based inclusion
+    {
+      pattern: /bg-(red|green|blue|yellow)-(50|100|500|600)/,
+    },
+    {
+      pattern: /text-(xs|sm|base|lg|xl)/,
+    },
+    // Variant-based inclusion
+    {
+      pattern: /^(hover|focus|active):/,
+      variants: ['hover', 'focus', 'active'],
+    },
+  ],
+  blocklist: [
+    // Exclude specific classes to save space
+    'container',
+  ],
+  theme: {
+    extend: {},
+  },
+  plugins: [],
+}</code></pre>
+        </div>
+
+        <div class="mt-6 p-4 bg-blue-50 border border-blue-200 rounded">
+          <p class="text-sm text-blue-900"><strong>📝 Note:</strong> This configuration ensures Tailwind scans multiple directories, includes dynamic patterns, and uses blocklist to optimize bundle size.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 7: Decision Tree -->
+    <section class="mb-12">
+      <div class="bg-white rounded-lg shadow p-6 mb-6">
+        <h2 class="text-3xl font-bold text-gray-900 mb-6">Decision Tree: How to Handle Dynamic Classes</h2>
+        
+        <div class="space-y-4">
+          <div class="border border-gray-300 rounded p-4 bg-gradient-to-r from-blue-50 to-indigo-50">
+            <p class="font-bold text-gray-900 mb-4">📍 START: You want to apply a class conditionally</p>
+            
+            <div class="ml-6 space-y-4">
+              <div>
+                <p class="font-semibold text-gray-800 mb-2">❓ Is the class name complete and static in the source?</p>
+                <div class="ml-6 space-y-3">
+                  <div class="bg-green-100 border border-green-300 rounded p-3">
+                    <p class="text-sm text-green-900"><strong>✅ YES</strong> (class="p-4" or condition ? 'p-4' : 'p-2')</p>
+                    <p class="text-xs text-green-700 mt-1">→ It will be detected! No action needed.</p>
+                  </div>
+                </div>
+              </div>
+
+              <div>
+                <p class="font-semibold text-gray-800 mb-2">❓ No - is it built from a small set of known values?</p>
+                <div class="ml-6 space-y-3">
+                  <div class="bg-yellow-100 border border-yellow-300 rounded p-3">
+                    <p class="text-sm text-yellow-900"><strong>⚠️ YES</strong> (colors=['red','blue'], sizes=['sm','lg'])</p>
+                    <p class="text-xs text-yellow-700 mt-1">→ Add to <code class="bg-white px-1 rounded">safelist</code> explicitly: safelist: ['bg-red-500', 'bg-blue-500', ...]</p>
+                  </div>
+                </div>
+              </div>
+
+              <div>
+                <p class="font-semibold text-gray-800 mb-2">❓ No - is it a pattern (many possible values)?</p>
+                <div class="ml-6 space-y-3">
+                  <div class="bg-orange-100 border border-orange-300 rounded p-3">
+                    <p class="text-sm text-orange-900"><strong>⚠️ YES</strong> (any color, any size, any spacing)</p>
+                    <p class="text-xs text-orange-700 mt-1">→ Use regex in <code class="bg-white px-1 rounded">safelist</code>: pattern: /^bg-.*/ or use arbitrary values [#1e3a5f]</p>
+                  </div>
+                </div>
+              </div>
+
+              <div>
+                <p class="font-semibold text-gray-800 mb-2">❓ No - truly arbitrary values?</p>
+                <div class="ml-6 space-y-3">
+                  <div class="bg-red-100 border border-red-300 rounded p-3">
+                    <p class="text-sm text-red-900"><strong>❌ PROBABLY NOT</strong> (values from API, user input)</p>
+                    <p class="text-xs text-red-700 mt-1">→ Use inline styles instead: style={`color: ${userColor}`} or CSS variables</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 8: Performance Impact -->
+    <section class="mb-12">
+      <div class="bg-white rounded-lg shadow p-6">
+        <h2 class="text-3xl font-bold text-gray-900 mb-6">Impact on Bundle Size</h2>
+        
+        <div class="grid md:grid-cols-3 gap-6">
+          <div class="bg-gradient-to-br from-red-50 to-red-100 border border-red-200 rounded p-6">
+            <div class="text-3xl font-bold text-red-600 mb-2">547 KB</div>
+            <p class="text-sm font-semibold text-red-900 mb-3">No Content Config</p>
+            <p class="text-xs text-red-800">❌ Entire Tailwind CSS included (unoptimized)</p>
+          </div>
+
+          <div class="bg-gradient-to-br from-yellow-50 to-yellow-100 border border-yellow-200 rounded p-6">
+            <div class="text-3xl font-bold text-yellow-600 mb-2">89 KB</div>
+            <p class="text-sm font-semibold text-yellow-900 mb-3">With Content Paths</p>
+            <p class="text-xs text-yellow-800">⚠️ Only detected classes included (typical)</p>
+          </div>
+
+          <div class="bg-gradient-to-br from-green-50 to-green-100 border border-green-200 rounded p-6">
+            <div class="text-3xl font-bold text-green-600 mb-2">42 KB</div>
+            <p class="text-sm font-semibold text-green-900 mb-3">Optimized (+ Minify)</p>
+            <p class="text-xs text-green-800">✅ Content paths + minification + gzip</p>
+          </div>
+        </div>
+
+        <div class="mt-6 p-4 bg-blue-50 border border-blue-200 rounded">
+          <p class="text-sm text-blue-900"><strong>💡 Key Takeaway:</strong> Proper content configuration can reduce your CSS bundle by 80-85% in many cases! This is why class detection is so important.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Getting Started -->
+    <section class="bg-gradient-to-r from-indigo-600 to-blue-600 text-white rounded-lg shadow p-8 mb-12">
+      <h2 class="text-3xl font-bold mb-4">Ready to Get Started?</h2>
+      <p class="text-indigo-100 mb-6">Remember: Keep your class names static and complete in your source files, configure your content paths properly, and use safelist for truly dynamic classes.</p>
+      <div class="grid md:grid-cols-2 gap-4">
+        <div class="bg-white bg-opacity-20 rounded p-4">
+          <p class="font-semibold mb-2">Run Dev Server:</p>
+          <code class="block bg-black bg-opacity-30 px-3 py-2 rounded text-sm">pnpm dev</code>
+        </div>
+        <div class="bg-white bg-opacity-20 rounded p-4">
+          <p class="font-semibold mb-2">Build for Production:</p>
+          <code class="block bg-black bg-opacity-30 px-3 py-2 rounded text-sm">pnpm build</code>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="bg-gray-900 text-gray-400 py-8">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <p class="text-sm">Understanding class detection is crucial for optimizing your Tailwind CSS builds. ✨</p>
+    </div>
+  </footer>
+</body>
+</html>
