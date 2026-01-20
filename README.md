@@ -43,9 +43,11 @@ Implement theme switching and dark mode support with class-based and media query
 - **Dev server**: `http://localhost:5176`
 
 ### 5. **Theme Variables** (`./theme-variables`)
-*Coming soon* - Customize and extend Tailwind's theme system.
+Customize and extend Tailwind's theme system to match your brand. Learn how to create consistent design systems with custom colors, spacing, typography, and animations.
 
-- **Key concepts**: Theme configuration, extending colors, custom spacing scales
+- **Key concepts**: Theme configuration, extending defaults, design systems
+- **Examples**: Custom color scales, spacing, animations, shadows
+- **Dev server**: `http://localhost:5177`
 
 ### 6. **Colors** (`./colors`)
 *Coming soon* - Deep dive into Tailwind's color palette and customization.
@@ -144,7 +146,7 @@ tailwind-playground/
 ├── states/                   ✅ Complete
 ├── responsive-design/        ✅ Complete
 ├── dark-mode/                ✅ Complete
-├── theme-variables/          📋 Planned
+├── theme-variables/          ✅ Complete
 ├── colors/                   📋 Planned
 ├── custom-styles/            📋 Planned
 ├── detecting-classes/        📋 Planned
